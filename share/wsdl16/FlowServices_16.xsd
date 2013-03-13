@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" 
+           targetNamespace="eurocontrol/cfmu/b2b/FlowServices" 
+           xmlns:flow="eurocontrol/cfmu/b2b/FlowServices"
+           xmlns:common="eurocontrol/cfmu/b2b/CommonServices"
+           xmlns:airspace="eurocontrol/cfmu/b2b/AirspaceServices"
+           xmlns:aixm="http://www.aixm.aero/schema/5.1/message"
+           xmlns:adr="http://www.aixm.aero/schema/5.1/extensions/ADR"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           >
+  <xs:import namespace="eurocontrol/cfmu/b2b/CommonServices" schemaLocation="CommonServices_16.xsd"/>
+  <xs:import namespace="eurocontrol/cfmu/b2b/AirspaceServices" schemaLocation="AirspaceServices_16.xsd"/>
+  <xs:import namespace="http://www.aixm.aero/schema/5.1/message" schemaLocation="aixm/message/AIXM_BasicMessage.xsd"/>
+  <xs:import namespace="http://www.aixm.aero/schema/5.1/extensions/ADR" schemaLocation="aixm/extensions/ADR/ADR_Features.xsd"/>
+
+  <xs:element name="ANMRetrievalRequest" type="flow:ANMRetrievalRequest"/>
+
+  <xs:element name="ANMRetrievalReply" type="flow:ANMRetrievalReply"/>
+
+  <xs:simpleType name="RegulationId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="1"/><xs:maxLength value="8"/><xs:pattern value="[a-zA-Z0-9]{1,8}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FmpIdFilter">
+    <xs:restriction base="xs:string">
+<xs:minLength value="0"/><xs:maxLength value="8"/><xs:pattern value="[a-zA-Z0-9]{2,8}|[a-zA-Z0-9]{0,7}\*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RegulationLocationCategory">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ARRIVAL"/>
+          <xs:enumeration value="DEPARTURE"/>
+          <xs:enumeration value="ENROUTE"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="RegulationState">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="NEW"/>
+          <xs:enumeration value="CHANGED"/>
+          <xs:enumeration value="CANCELLED"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="RegulationReason">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ACCIDENT_INCIDENT"/>
+          <xs:enumeration value="ATC_CAPACITY"/>
+          <xs:enumeration value="DEICING"/>
+          <xs:enumeration value="EQUIPMENT_NON_ATC"/>
+          <xs:enumeration value="AERODROME_CAPACITY"/>
+          <xs:enumeration value="ATC_INDUSTRIAL_ACTION"/>
+          <xs:enumeration value="NON_ATC_INDUSTRIAL_ACTION"/>
+          <xs:enumeration value="WEATHER"/>
+          <xs:enumeration value="AIRSPACE_MANAGEMENT"/>
+          <xs:enumeration value="SPECIAL_EVENT"/>
+          <xs:enumeration value="ATC_ROUTINGS"/>
+          <xs:enumeration value="ATC_STAFFING"/>
+          <xs:enumeration value="ATC_EQUIPMENT"/>
+          <xs:enumeration value="ENVIRONMENTAL_ISSUES"/>
+          <xs:enumeration value="OTHERS"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+
+
+  <xs:complexType name="Measures" abstract="false" >
+  <xs:sequence>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ANMRetrievalRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="dayOfOperation" type="common:DateYearMonthDay" minOccurs="0" maxOccurs="1"/>
+<xs:element name="fmpId" type="flow:FmpIdFilter" minOccurs="0" maxOccurs="1"/>
+<xs:element name="regulationStates" type="flow:RegulationState" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="preOPSReply" type="flow:ANMRetrievalReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ANMRetrievalReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flow:ANMRetrievalReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ANMRetrievalReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="anm" type="flow:ANM" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ANM" abstract="false" >
+  <xs:sequence>
+<xs:element name="validityDate" type="common:DateYearMonthDay" minOccurs="0" maxOccurs="1"/>
+<xs:element name="releaseTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="regulations" type="flow:Regulation" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RegulationLocation" abstract="false" >
+  <xs:sequence>
+<xs:element name="regulationId" type="flow:RegulationId" minOccurs="0" maxOccurs="1"/>
+<xs:choice minOccurs="0" maxOccurs="1"><xs:element name="referenceLocation-ReferenceLocationDBEPoint" type="airspace:ReferenceLocationDBEPoint"/><xs:element name="referenceLocation-ReferenceLocationPublishedPoint" type="airspace:ReferenceLocationPublishedPoint"/><xs:element name="referenceLocation-ReferenceLocationAirspace" type="airspace:ReferenceLocationAirspace"/><xs:element name="referenceLocation-ReferenceLocationAerodromeSet" type="airspace:ReferenceLocationAerodromeSet"/><xs:element name="referenceLocation-ReferenceLocationAerodrome" type="airspace:ReferenceLocationAerodrome"/></xs:choice>
+<xs:element name="toConfirm" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RegulationCause" abstract="false" >
+  <xs:sequence>
+<xs:element name="reason" type="flow:RegulationReason" minOccurs="0" maxOccurs="1"/>
+<xs:element name="locationCategory" type="flow:RegulationLocationCategory" minOccurs="0" maxOccurs="1"/>
+<xs:element name="iataDelayCode" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Regulation" abstract="false" >
+  <xs:sequence>
+<xs:element name="id" type="flow:RegulationId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="publicationTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="applicabilityPeriod" type="common:DateTimeMinutePeriod" minOccurs="0" maxOccurs="1"/>
+<xs:element name="minFlightLevel" type="airspace:FlightLevel" minOccurs="0" maxOccurs="1"/>
+<xs:element name="maxFlightLevel" type="airspace:FlightLevel" minOccurs="0" maxOccurs="1"/>
+<xs:element name="fmpId" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="state" type="flow:RegulationState" minOccurs="0" maxOccurs="1"/>
+<xs:element name="reason" type="flow:RegulationReason" minOccurs="0" maxOccurs="1"/>
+<xs:element name="tvDescription" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="remark" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+</xs:schema>

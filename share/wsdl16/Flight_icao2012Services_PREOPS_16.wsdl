@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions 
+             targetNamespace="eurocontrol/cfmu/b2b/Flight_icao2012Services" 
+             name="Flight_icao2012Services"
+             xmlns:flight_icao2012="eurocontrol/cfmu/b2b/Flight_icao2012Services"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema>
+      <xs:import namespace="eurocontrol/cfmu/b2b/Flight_icao2012Services" schemaLocation="Flight_icao2012Services_16.xsd"/>
+    </xs:schema>
+  </types>
+
+  <message name="FlightPlanValidationRequest">
+    <part name="parameters" element="flight_icao2012:FlightPlanValidationRequest"/>
+  </message>
+  <message name="FlightPlanValidationReply">
+    <part name="parameters" element="flight_icao2012:FlightPlanValidationReply"/>
+  </message>
+  <message name="RoutingAssistanceRequest">
+    <part name="parameters" element="flight_icao2012:RoutingAssistanceRequest"/>
+  </message>
+  <message name="RoutingAssistanceReply">
+    <part name="parameters" element="flight_icao2012:RoutingAssistanceReply"/>
+  </message>
+
+  <portType name="FlightPreparationService">
+    <operation name="validateFlightPlan">
+      <input message="flight_icao2012:FlightPlanValidationRequest"/>
+      <output message="flight_icao2012:FlightPlanValidationReply"/>
+    </operation>
+    <operation name="proposeRoutes">
+      <input message="flight_icao2012:RoutingAssistanceRequest"/>
+      <output message="flight_icao2012:RoutingAssistanceReply"/>
+    </operation>
+  </portType>
+
+  <binding name="FlightPreparationPortBinding" type="flight_icao2012:FlightPreparationService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="validateFlightPlan">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="proposeRoutes">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="FlightPreparationService">
+    <port name="FlightPreparationPort" binding="flight_icao2012:FlightPreparationPortBinding">
+      <soap:address location="https://www.cfmu.eurocontrol.int:16443/B2B_PREOPS_16/gateway/spec"/>
+      <!--soap:address location="http://dhdv101:27030/CORE/spec"/-->
+    </port>
+  </service>
+  <message name="FlightPlanCreationRequest">
+    <part name="parameters" element="flight_icao2012:FlightPlanCreationRequest"/>
+  </message>
+  <message name="FlightPlanCreationReply">
+    <part name="parameters" element="flight_icao2012:FlightPlanCreationReply"/>
+  </message>
+  <message name="FlightPlanUpdateRequest">
+    <part name="parameters" element="flight_icao2012:FlightPlanUpdateRequest"/>
+  </message>
+  <message name="FlightPlanUpdateReply">
+    <part name="parameters" element="flight_icao2012:FlightPlanUpdateReply"/>
+  </message>
+  <message name="FlightPlanCancellationRequest">
+    <part name="parameters" element="flight_icao2012:FlightPlanCancellationRequest"/>
+  </message>
+  <message name="FlightPlanCancellationReply">
+    <part name="parameters" element="flight_icao2012:FlightPlanCancellationReply"/>
+  </message>
+  <message name="FlightDelayRequest">
+    <part name="parameters" element="flight_icao2012:FlightDelayRequest"/>
+  </message>
+  <message name="FlightDelayReply">
+    <part name="parameters" element="flight_icao2012:FlightDelayReply"/>
+  </message>
+  <message name="FlightDepartureRequest">
+    <part name="parameters" element="flight_icao2012:FlightDepartureRequest"/>
+  </message>
+  <message name="FlightDepartureReply">
+    <part name="parameters" element="flight_icao2012:FlightDepartureReply"/>
+  </message>
+  <message name="FlightArrivalRequest">
+    <part name="parameters" element="flight_icao2012:FlightArrivalRequest"/>
+  </message>
+  <message name="FlightArrivalReply">
+    <part name="parameters" element="flight_icao2012:FlightArrivalReply"/>
+  </message>
+  <message name="FilingStatusRequest">
+    <part name="parameters" element="flight_icao2012:FilingStatusRequest"/>
+  </message>
+  <message name="FilingStatusReply">
+    <part name="parameters" element="flight_icao2012:FilingStatusReply"/>
+  </message>
+
+  <portType name="FlightFilingService">
+    <operation name="fileNewFlightPlan">
+      <input message="flight_icao2012:FlightPlanCreationRequest"/>
+      <output message="flight_icao2012:FlightPlanCreationReply"/>
+    </operation>
+    <operation name="fileFlightPlanUpdate">
+      <input message="flight_icao2012:FlightPlanUpdateRequest"/>
+      <output message="flight_icao2012:FlightPlanUpdateReply"/>
+    </operation>
+    <operation name="fileFlightPlanCancellation">
+      <input message="flight_icao2012:FlightPlanCancellationRequest"/>
+      <output message="flight_icao2012:FlightPlanCancellationReply"/>
+    </operation>
+    <operation name="fileFlightDelay">
+      <input message="flight_icao2012:FlightDelayRequest"/>
+      <output message="flight_icao2012:FlightDelayReply"/>
+    </operation>
+    <operation name="fileFlightDeparture">
+      <input message="flight_icao2012:FlightDepartureRequest"/>
+      <output message="flight_icao2012:FlightDepartureReply"/>
+    </operation>
+    <operation name="fileFlightArrival">
+      <input message="flight_icao2012:FlightArrivalRequest"/>
+      <output message="flight_icao2012:FlightArrivalReply"/>
+    </operation>
+    <operation name="retrieveFilingStatus">
+      <input message="flight_icao2012:FilingStatusRequest"/>
+      <output message="flight_icao2012:FilingStatusReply"/>
+    </operation>
+  </portType>
+
+  <binding name="FlightFilingPortBinding" type="flight_icao2012:FlightFilingService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="fileNewFlightPlan">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="fileFlightPlanUpdate">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="fileFlightPlanCancellation">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="fileFlightDelay">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="fileFlightDeparture">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="fileFlightArrival">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="retrieveFilingStatus">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="FlightFilingService">
+    <port name="FlightFilingPort" binding="flight_icao2012:FlightFilingPortBinding">
+      <soap:address location="https://www.cfmu.eurocontrol.int:16443/B2B_PREOPS_16/gateway/spec"/>
+      <!--soap:address location="http://dhdv101:27030/CORE/spec"/-->
+    </port>
+  </service>
+  <message name="FlightPlanListRequest">
+    <part name="parameters" element="flight_icao2012:FlightPlanListRequest"/>
+  </message>
+  <message name="FlightPlanListReply">
+    <part name="parameters" element="flight_icao2012:FlightPlanListReply"/>
+  </message>
+  <message name="FlightListByKeysRequest">
+    <part name="parameters" element="flight_icao2012:FlightListByKeysRequest"/>
+  </message>
+  <message name="FlightListByKeysReply">
+    <part name="parameters" element="flight_icao2012:FlightListByKeysReply"/>
+  </message>
+  <message name="FlightListByAircraftOperatorRequest">
+    <part name="parameters" element="flight_icao2012:FlightListByAircraftOperatorRequest"/>
+  </message>
+  <message name="FlightListByAircraftOperatorReply">
+    <part name="parameters" element="flight_icao2012:FlightListByAircraftOperatorReply"/>
+  </message>
+  <message name="FlightListByAerodromeRequest">
+    <part name="parameters" element="flight_icao2012:FlightListByAerodromeRequest"/>
+  </message>
+  <message name="FlightListByAerodromeReply">
+    <part name="parameters" element="flight_icao2012:FlightListByAerodromeReply"/>
+  </message>
+  <message name="FlightListByAerodromeSetRequest">
+    <part name="parameters" element="flight_icao2012:FlightListByAerodromeSetRequest"/>
+  </message>
+  <message name="FlightListByAerodromeSetReply">
+    <part name="parameters" element="flight_icao2012:FlightListByAerodromeSetReply"/>
+  </message>
+  <message name="FlightListByAirspaceRequest">
+    <part name="parameters" element="flight_icao2012:FlightListByAirspaceRequest"/>
+  </message>
+  <message name="FlightListByAirspaceReply">
+    <part name="parameters" element="flight_icao2012:FlightListByAirspaceReply"/>
+  </message>
+  <message name="FlightListByPointRequest">
+    <part name="parameters" element="flight_icao2012:FlightListByPointRequest"/>
+  </message>
+  <message name="FlightListByPointReply">
+    <part name="parameters" element="flight_icao2012:FlightListByPointReply"/>
+  </message>
+  <message name="FlightListByTrafficVolumeRequest">
+    <part name="parameters" element="flight_icao2012:FlightListByTrafficVolumeRequest"/>
+  </message>
+  <message name="FlightListByTrafficVolumeReply">
+    <part name="parameters" element="flight_icao2012:FlightListByTrafficVolumeReply"/>
+  </message>
+  <message name="FlightRetrievalRequest">
+    <part name="parameters" element="flight_icao2012:FlightRetrievalRequest"/>
+  </message>
+  <message name="FlightRetrievalReply">
+    <part name="parameters" element="flight_icao2012:FlightRetrievalReply"/>
+  </message>
+
+  <portType name="FlightManagementService">
+    <operation name="queryFlightPlans">
+      <input message="flight_icao2012:FlightPlanListRequest"/>
+      <output message="flight_icao2012:FlightPlanListReply"/>
+    </operation>
+    <operation name="queryFlightsByKeys">
+      <input message="flight_icao2012:FlightListByKeysRequest"/>
+      <output message="flight_icao2012:FlightListByKeysReply"/>
+    </operation>
+    <operation name="queryFlightsByAircraftOperator">
+      <input message="flight_icao2012:FlightListByAircraftOperatorRequest"/>
+      <output message="flight_icao2012:FlightListByAircraftOperatorReply"/>
+    </operation>
+    <operation name="queryFlightsByAerodrome">
+      <input message="flight_icao2012:FlightListByAerodromeRequest"/>
+      <output message="flight_icao2012:FlightListByAerodromeReply"/>
+    </operation>
+    <operation name="queryFlightsByAerodromeSet">
+      <input message="flight_icao2012:FlightListByAerodromeSetRequest"/>
+      <output message="flight_icao2012:FlightListByAerodromeSetReply"/>
+    </operation>
+    <operation name="queryFlightsByAirspace">
+      <input message="flight_icao2012:FlightListByAirspaceRequest"/>
+      <output message="flight_icao2012:FlightListByAirspaceReply"/>
+    </operation>
+    <operation name="queryFlightsByPoint">
+      <input message="flight_icao2012:FlightListByPointRequest"/>
+      <output message="flight_icao2012:FlightListByPointReply"/>
+    </operation>
+    <operation name="queryFlightsByTrafficVolume">
+      <input message="flight_icao2012:FlightListByTrafficVolumeRequest"/>
+      <output message="flight_icao2012:FlightListByTrafficVolumeReply"/>
+    </operation>
+    <operation name="retrieveFlight">
+      <input message="flight_icao2012:FlightRetrievalRequest"/>
+      <output message="flight_icao2012:FlightRetrievalReply"/>
+    </operation>
+  </portType>
+
+  <binding name="FlightManagementPortBinding" type="flight_icao2012:FlightManagementService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="queryFlightPlans">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="queryFlightsByKeys">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="queryFlightsByAircraftOperator">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="queryFlightsByAerodrome">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="queryFlightsByAerodromeSet">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="queryFlightsByAirspace">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="queryFlightsByPoint">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="queryFlightsByTrafficVolume">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="retrieveFlight">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="FlightManagementService">
+    <port name="FlightManagementPort" binding="flight_icao2012:FlightManagementPortBinding">
+      <soap:address location="https://www.cfmu.eurocontrol.int:16443/B2B_PREOPS_16/gateway/spec"/>
+      <!--soap:address location="http://dhdv101:27030/CORE/spec"/-->
+    </port>
+  </service>
+
+</definitions>

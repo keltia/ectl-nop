@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" 
+           targetNamespace="eurocontrol/cfmu/b2b/AirspaceServices" 
+           xmlns:airspace="eurocontrol/cfmu/b2b/AirspaceServices"
+           xmlns:common="eurocontrol/cfmu/b2b/CommonServices"
+           xmlns:aixm="http://www.aixm.aero/schema/5.1/message"
+           xmlns:adr="http://www.aixm.aero/schema/5.1/extensions/ADR"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           >
+  <xs:import namespace="eurocontrol/cfmu/b2b/CommonServices" schemaLocation="CommonServices_16.xsd"/>
+  <xs:import namespace="http://www.aixm.aero/schema/5.1/message" schemaLocation="aixm/message/AIXM_BasicMessage.xsd"/>
+  <xs:import namespace="http://www.aixm.aero/schema/5.1/extensions/ADR" schemaLocation="aixm/extensions/ADR/ADR_Features.xsd"/>
+
+  <xs:element name="CACDBulkRequest" type="airspace:CACDBulkRequest"/>
+
+  <xs:element name="CACDAIXMFileListRequest" type="airspace:CACDAIXMFileListRequest"/>
+
+  <xs:element name="AUPChainRetrievalRequest" type="airspace:AUPChainRetrievalRequest"/>
+
+  <xs:element name="AUPRetrievalRequest" type="airspace:AUPRetrievalRequest"/>
+
+  <xs:element name="AUPCreationRequest" type="airspace:AUPCreationRequest"/>
+
+  <xs:element name="AUPUpdateRequest" type="airspace:AUPUpdateRequest"/>
+
+  <xs:element name="AUPValidationRequest" type="airspace:AUPValidationRequest"/>
+
+  <xs:element name="AUPDeletionRequest" type="airspace:AUPDeletionRequest"/>
+
+  <xs:element name="AUPRSAAllocationExpansionRequest" type="airspace:AUPRSAAllocationExpansionRequest"/>
+
+  <xs:element name="AUPServiceConfigurationRequest" type="airspace:AUPServiceConfigurationRequest"/>
+
+  <xs:element name="EAUPChainRetrievalRequest" type="airspace:EAUPChainRetrievalRequest"/>
+
+  <xs:element name="EAUPCDRRequest" type="airspace:EAUPCDRRequest"/>
+
+  <xs:element name="EAUPCDRCompareRequest" type="airspace:EAUPCDRCompareRequest"/>
+
+  <xs:element name="EAUPRSARequest" type="airspace:EAUPRSARequest"/>
+
+  <xs:element name="EAUPRSACompareRequest" type="airspace:EAUPRSACompareRequest"/>
+
+  <xs:element name="CACDBulkReply" type="airspace:CACDBulkReply"/>
+
+  <xs:element name="CACDAIXMFileListReply" type="airspace:CACDAIXMFileListReply"/>
+
+  <xs:element name="AUPChainRetrievalReply" type="airspace:AUPChainRetrievalReply"/>
+
+  <xs:element name="AUPRetrievalReply" type="airspace:AUPRetrievalReply"/>
+
+  <xs:element name="AUPCreationReply" type="airspace:AUPCreationReply"/>
+
+  <xs:element name="AUPUpdateReply" type="airspace:AUPUpdateReply"/>
+
+  <xs:element name="AUPValidationReply" type="airspace:AUPValidationReply"/>
+
+  <xs:element name="AUPDeletionReply" type="airspace:AUPDeletionReply"/>
+
+  <xs:element name="AUPRSAAllocationExpansionReply" type="airspace:AUPRSAAllocationExpansionReply"/>
+
+  <xs:element name="AUPServiceConfigurationReply" type="airspace:AUPServiceConfigurationReply"/>
+
+  <xs:element name="EAUPChainRetrievalReply" type="airspace:EAUPChainRetrievalReply"/>
+
+  <xs:element name="EAUPCDRReply" type="airspace:EAUPCDRReply"/>
+
+  <xs:element name="EAUPCDRCompareReply" type="airspace:EAUPCDRCompareReply"/>
+
+  <xs:element name="EAUPRSAReply" type="airspace:EAUPRSAReply"/>
+
+  <xs:element name="EAUPRSACompareReply" type="airspace:EAUPRSACompareReply"/>
+
+  <xs:simpleType name="FlowId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="0"/><xs:maxLength value="8"/><xs:pattern value="[a-zA-Z1-9_]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AIRACId">
+    <xs:restriction base="xs:string">
+<xs:pattern value="[0-9]{4}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AerodromeICAOId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="4"/><xs:maxLength value="4"/><xs:pattern value="[A-Z]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AerodromeSetId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="1"/><xs:maxLength value="8"/><xs:pattern value=".*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AirspaceId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="1"/><xs:maxLength value="12"/><xs:pattern value=".*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AirSpeed_DataType">
+    <xs:restriction base="xs:int">
+
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AUPId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="1"/><xs:maxLength value="24"/><xs:pattern value="[A-Z0-9]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="DBEPointId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="2"/><xs:maxLength value="5"/><xs:pattern value=".*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FIRICAOId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="4"/><xs:maxLength value="4"/><xs:pattern value="[A-Z]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FlightLevel_DataType">
+    <xs:restriction base="xs:int">
+
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="NetworkAddress_DataType">
+    <xs:restriction base="xs:string">
+<xs:minLength value="1"/><xs:maxLength value="8"/><xs:pattern value=".*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PublishedPointId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="2"/><xs:maxLength value="5"/><xs:pattern value="[A-Z0-9]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RouteId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="1"/><xs:maxLength value="7"/><xs:pattern value="[A-Z0-9]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TrafficVolumeId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="1"/><xs:maxLength value="8"/><xs:pattern value=".*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="RestrictionId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="10"/><xs:maxLength value="10"/><xs:pattern value="[A-Z0-9]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AirspaceType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="REG"/>
+          <xs:enumeration value="FIR"/>
+          <xs:enumeration value="AUA"/>
+          <xs:enumeration value="ES"/>
+          <xs:enumeration value="CS"/>
+          <xs:enumeration value="ERSA"/>
+          <xs:enumeration value="CRSA"/>
+          <xs:enumeration value="CDA"/>
+          <xs:enumeration value="AUAG"/>
+          <xs:enumeration value="AREA"/>
+          <xs:enumeration value="NAS"/>
+          <xs:enumeration value="IFPZ"/>
+          <xs:enumeration value="AOI"/>
+          <xs:enumeration value="AOP"/>
+          <xs:enumeration value="CLUS"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="AIXMTemporality">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="BASELINE"/>
+          <xs:enumeration value="PERM_DELTA"/>
+          <xs:enumeration value="TEMP_DELTA"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="AIXMFeatureType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="AERODROME"/>
+          <xs:enumeration value="AIRSPACE"/>
+          <xs:enumeration value="POINT"/>
+          <xs:enumeration value="ROUTE"/>
+          <xs:enumeration value="UNIT"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="AUPType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="BASELINE"/>
+          <xs:enumeration value="UPDATE"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="AUPState">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="DRAFT"/>
+          <xs:enumeration value="BASELINE"/>
+          <xs:enumeration value="RELEASED"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="CACDReleaseType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="OPS"/>
+          <xs:enumeration value="PRE_OPS"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="ErrorCategory">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="FUA"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="ErrorType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="AUP_CDR_UPDATE_CLOSURE_CDR_TYPE"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_OPENING_CDR_TYPE"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_NOTAM"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_FL_RANGE"/>
+          <xs:enumeration value="AUP_NIL_AUP_MANUAL_MUST_BE_NULL"/>
+          <xs:enumeration value="AUP_NIL_AUP_STATE"/>
+          <xs:enumeration value="AUP_EMPTY"/>
+          <xs:enumeration value="AUP_RSA_ALLOCATION_AMC_NOT_RESPONSIBLE"/>
+          <xs:enumeration value="AUP_RSA_ALLOCATION_OVERLAP"/>
+          <xs:enumeration value="AUP_RSA_ALLOCATION_COMPOSED_OVERLAP"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_OVERLAP"/>
+          <xs:enumeration value="AUP_RSA_ALLOCATION_VERTICAL_LIMITS"/>
+          <xs:enumeration value="AUP_RSA_ALLOCATION_PERIOD_RSA_MISMATCH"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_PTS_ROUTE"/>
+          <xs:enumeration value="AUP_RSA_ALLOCATION_PERIOD_AUP_MISMATCH"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_PERIOD_AUP_MISMATCH"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_AMC_NOT_RESPONSIBLE"/>
+          <xs:enumeration value="AUP_RSA_ALLOCATION_FL_RANGE"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_NO_CRUISING_LEVEL"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_FL_TOO_LARGE"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_UPPER_CRUISING_LEVEL"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_UPPER_FL_NOT_CRUISING_LEVEL"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_LOWER_FL_NOT_CRUISING_LEVEL"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_VALID_POINT_TYPES"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_POINT_IN_ROUTE"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_WRONG_ROUTE_TYPE"/>
+          <xs:enumeration value="AUP_AMC_MUST_EXIST"/>
+          <xs:enumeration value="AUP_RSA_ALLOCATION_RSA_MUST_EXIST"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_ROUTE_MUST_EXIST"/>
+          <xs:enumeration value="AUP_VALID_STATUS"/>
+          <xs:enumeration value="EXPAND_WRONG_PERIOD"/>
+          <xs:enumeration value="TIMESTAMP_MISMATCH"/>
+          <xs:enumeration value="AUP_NIL_AUP_NOT_EMPTY"/>
+          <xs:enumeration value="AUP_RSA_UPDATE_OVERLAPS_AIRAC_SWITCH"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_OVERLAPS_AIRAC_SWITCH"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_LOWER_CRUISING_LEVEL"/>
+          <xs:enumeration value="AUP_CDR_UPDATE_STATUS_CONFLICT"/>
+          <xs:enumeration value="AUP_ALREADY_EXISTS"/>
+          <xs:enumeration value="AUP_DOES_NOT_EXIST"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FlightLevelUnit">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="F"/>
+          <xs:enumeration value="A"/>
+          <xs:enumeration value="S"/>
+          <xs:enumeration value="M"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="Network">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="AFTN"/>
+          <xs:enumeration value="SITA"/>
+          <xs:enumeration value="OTHER"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="ReferenceLocationType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="AERODROME"/>
+          <xs:enumeration value="AERODROME_SET"/>
+          <xs:enumeration value="AIRSPACE"/>
+          <xs:enumeration value="PUBLISHED_POINT"/>
+          <xs:enumeration value="DBE_POINT"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="SpeedUnit">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="UNDEFINED"/>
+          <xs:enumeration value="KNOTS"/>
+          <xs:enumeration value="KILOMETERS_PER_HOUR"/>
+          <xs:enumeration value="MACH_NUMBER"/>
+          <xs:enumeration value="FEET_PER_MINUTE"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="PointKind">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="REF"/>
+          <xs:enumeration value="GEO"/>
+          <xs:enumeration value="PUBLISHED"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FlightPlanProcessing">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="RAD"/>
+          <xs:enumeration value="PROFILE_TUNING"/>
+          <xs:enumeration value="AERODROME_FLIGHT_RULE"/>
+          <xs:enumeration value="TP_AIRCRAFT_TYPE_CLASSIFICATION"/>
+          <xs:enumeration value="DCT_LIMIT"/>
+          <xs:enumeration value="SSR_CODE_ALLOCATION"/>
+          <xs:enumeration value="FRA_DCT_LIMIT"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+
+
+  <xs:complexType name="AirspaceAvailability" abstract="false" >
+  <xs:sequence>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AirspaceStructure" abstract="false" >
+  <xs:sequence>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CACDBulkRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="airacSequenceNumber" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="airacId" type="airspace:AIRACId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="validity" type="common:DateYearMonthDayPeriod" minOccurs="0" maxOccurs="1"/>
+<xs:element name="releaseType" type="airspace:CACDReleaseType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="airspace:CACDBulkReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CACDBulkReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:CACDBulkReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CACDBulkReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="files" type="airspace:CACDBulkFile" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CACDAIXMFileListRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="airacId" type="airspace:AIRACId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="airacSequenceNumber" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="validity" type="common:DateYearMonthDayPeriod" minOccurs="0" maxOccurs="1"/>
+<xs:element name="featureType" type="airspace:AIXMFeatureType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="temporality" type="airspace:AIXMTemporality" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="airspace:CACDAIXMFileListReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CACDAIXMFileListReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:CACDAIXMFileListReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="CACDAIXMFileListReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="files" type="airspace:CACDAIXMFile" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AUPChainRetrievalRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="amcIds" type="common:AirNavigationUnitId" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="chainDate" type="common:DateYearMonthDay" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="airspace:AUPChainRetrievalReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPChainRetrievalReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:AUPChainRetrievalReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPChainRetrievalReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="chains" type="airspace:AUPChain" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AUPRetrievalRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="aupId" type="airspace:AUPId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="returnComputed" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="preOPSReply" type="airspace:AUPRetrievalReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPRetrievalReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:AUPRetrievalReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPRetrievalReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="aup" type="airspace:AUP" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AUPCreationRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="aup" type="airspace:AUP" minOccurs="0" maxOccurs="1"/>
+<xs:element name="returnComputed" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="preOPSReply" type="airspace:AUPCreationReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPCreationReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:AUPCreationReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPCreationReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="aup" type="airspace:AUP" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AUPUpdateRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="aup" type="airspace:AUP" minOccurs="0" maxOccurs="1"/>
+<xs:element name="returnComputed" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="preOPSReply" type="airspace:AUPUpdateReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPUpdateReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:AUPUpdateReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPUpdateReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="aup" type="airspace:AUP" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AUPValidationRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="aup" type="airspace:AUP" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="airspace:AUPValidationReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPValidationReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:AUPValidationReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPValidationReplyData" abstract="false" >
+  <xs:sequence>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AUPDeletionRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="aupId" type="airspace:AUPId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="lastUpdate" type="common:LastUpdate" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="airspace:AUPDeletionReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPDeletionReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:AUPDeletionReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPDeletionReplyData" abstract="false" >
+  <xs:sequence>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AUPRSAAllocationExpansionRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="rsaAllocations" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="expansionPeriod" type="common:DateTimeMinutePeriod" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="airspace:AUPRSAAllocationExpansionReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPRSAAllocationExpansionReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:AUPRSAAllocationExpansionReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPRSAAllocationExpansionReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="implicitCDRs" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AUPServiceConfigurationRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="preOPSReply" type="airspace:AUPServiceConfigurationReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPServiceConfigurationReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:AUPServiceConfigurationReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="AUPServiceConfigurationReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="plannedUpdateStartTimes" type="common:DateTimeMinute" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPChainRetrievalRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="chainDate" type="common:DateYearMonthDay" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="airspace:EAUPChainRetrievalReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPChainRetrievalReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:EAUPChainRetrievalReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPChainRetrievalReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="chain" type="airspace:EAUPChain" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AbstractEAUPCDRRequest" abstract="true" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="cdrOpenings" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="cdrClosures" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="routeUUIDs" type="common:UUID" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="routeDesignators" minOccurs="0" maxOccurs="unbounded"><xs:simpleType><xs:restriction base="xs:string"><xs:pattern value="[A-Z0-9]{1,7}|[A-Z0-9]{1,6}\*"/></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="irUUIDFilter" type="airspace:IRUUIDFilter" minOccurs="0" maxOccurs="1"/>
+<xs:element name="irDesignatorFilter" type="airspace:IRDesignatorFilter" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightLevelRange" type="airspace:FlightLevelRange" minOccurs="0" maxOccurs="1"/>
+<xs:element name="applicability" type="common:DateTimeMinutePeriod" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPCDRRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="airspace:AbstractEAUPCDRRequest">
+  <xs:sequence>
+<xs:element name="eaupId" type="airspace:EAUPIdentification" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="airspace:EAUPCDRReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPCDRReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:EAUPCDRReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPCDRReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="cdrOpeningsClosures" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPCDRCompareRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="airspace:AbstractEAUPCDRRequest">
+  <xs:sequence>
+<xs:element name="eaupId1" type="airspace:EAUPIdentification" minOccurs="0" maxOccurs="1"/>
+<xs:element name="eaupId2" type="airspace:EAUPIdentification" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="airspace:EAUPCDRCompareReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPCDRCompareReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:EAUPCDRCompareReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPCDRCompareReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="commonCDROpeningsClosures" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="cdrOpeningsClosuresIn1Only" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="cdrOpeningsClosuresIn2Only" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AbstractEAUPRSARequest" abstract="true" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="implicit" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="explicit" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="rsaUUIds" type="common:UUID" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="rsaDesignators" minOccurs="0" maxOccurs="unbounded"><xs:simpleType><xs:restriction base="xs:string"><xs:pattern value="[A-Z0-9]{1,7}|[A-Z0-9]{1,6}\*"/></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="irUUIDFilter" type="airspace:IRUUIDFilter" minOccurs="0" maxOccurs="1"/>
+<xs:element name="irDesignatorFilter" type="airspace:IRDesignatorFilter" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightLevelRange" type="airspace:FlightLevelRange" minOccurs="0" maxOccurs="1"/>
+<xs:element name="applicability" type="common:DateTimeMinutePeriod" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPRSARequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="airspace:AbstractEAUPRSARequest">
+  <xs:sequence>
+<xs:element name="eaupId" type="airspace:EAUPIdentification" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="airspace:EAUPRSAReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPRSAReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:EAUPRSAReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPRSAReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="rsaAllocations" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPRSACompareRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="airspace:AbstractEAUPRSARequest">
+  <xs:sequence>
+<xs:element name="eaupId1" type="airspace:EAUPIdentification" minOccurs="0" maxOccurs="1"/>
+<xs:element name="eaupId2" type="airspace:EAUPIdentification" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="airspace:EAUPRSACompareReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPRSACompareReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="airspace:EAUPRSACompareReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPChain" abstract="false" >
+  <xs:sequence>
+<xs:element name="chainDate" type="common:DateYearMonthDay" minOccurs="0" maxOccurs="1"/>
+<xs:element name="eaups" type="airspace:EAUPSummary" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AUP" abstract="false" >
+  <xs:sequence>
+<xs:element name="summary" type="airspace:AUPSummary" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aupManualEntries" type="airspace:AUPManualEntries" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aupComputedEntries" type="airspace:AUPComputedEntries" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AUPChain" abstract="false" >
+  <xs:sequence>
+<xs:element name="chainDate" type="common:DateYearMonthDay" minOccurs="0" maxOccurs="1"/>
+<xs:element name="amcId" type="common:AirNavigationUnitId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aups" type="airspace:AUPSummary" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AUPComputedEntries" abstract="false" >
+  <xs:sequence>
+<xs:element name="implicitCDRs" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="mergedCDRs" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="implicitRSAs" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AUPManualEntries" abstract="false" >
+  <xs:sequence>
+<xs:element name="cdrs" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="rsas" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AUPSummary" abstract="false" >
+  <xs:sequence>
+<xs:element name="id" type="airspace:AUPId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="chainDate" type="common:DateYearMonthDay" minOccurs="0" maxOccurs="1"/>
+<xs:element name="amcId" type="common:AirNavigationUnitId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aupType" type="airspace:AUPType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="validityPeriod" type="common:DateTimeMinutePeriod" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aupState" type="airspace:AUPState" minOccurs="0" maxOccurs="1"/>
+<xs:element name="nilAUP" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="remark" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"><xs:pattern value="[a-zA-Z0-9 ]{0,128}"/></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="note" minOccurs="0" maxOccurs="25"><xs:simpleType><xs:restriction base="xs:string"><xs:pattern value="[a-zA-Z0-9 ]{0,60}"/></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="expandedAUP" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="lastUpdate" type="common:LastUpdate" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPRSACompareReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="commonRSAAllocations" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="rsaAllocationsIn1Only" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="rsaAllocationsIn2Only" type="aixm:AIXMBasicMessageType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CACDAIXMFile" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:File">
+  <xs:sequence>
+<xs:element name="airacSequenceNumber" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="airacId" type="airspace:AIRACId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="validity" type="common:DateYearMonthDay" minOccurs="0" maxOccurs="1"/>
+<xs:element name="featureType" type="airspace:AIXMFeatureType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="temporality" type="airspace:AIXMTemporality" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPIdentification" abstract="false" >
+  <xs:sequence>
+<xs:element name="chainDate" type="common:DateYearMonthDay" minOccurs="0" maxOccurs="1"/>
+<xs:element name="sequenceNumber" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"><xs:minInclusive value="0"/></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EAUPSummary" abstract="false" >
+  <xs:sequence>
+<xs:element name="releaseTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="validityPeriod" type="common:DateTimeMinutePeriod" minOccurs="0" maxOccurs="1"/>
+<xs:element name="eaupId" type="airspace:EAUPIdentification" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CACDBulkFile" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:File">
+  <xs:sequence>
+<xs:element name="airacSequenceNumber" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="airacId" type="airspace:AIRACId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="validity" type="common:DateYearMonthDay" minOccurs="0" maxOccurs="1"/>
+<xs:element name="releaseType" type="airspace:CACDReleaseType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightLevel" abstract="false" >
+  <xs:sequence>
+<xs:element name="unit" type="airspace:FlightLevelUnit" minOccurs="0" maxOccurs="1"/>
+<xs:element name="level" type="airspace:FlightLevel_DataType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="ground" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="ceiling" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightLevelRange" abstract="false" >
+  <xs:sequence>
+<xs:element name="min" type="airspace:FlightLevel" minOccurs="0" maxOccurs="1"/>
+<xs:element name="max" type="airspace:FlightLevel" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AirSpeed" abstract="false" >
+  <xs:sequence>
+<xs:element name="speed" type="airspace:AirSpeed_DataType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="unit" type="airspace:SpeedUnit" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ProcedureICAOId" abstract="false" >
+  <xs:sequence>
+<xs:element name="endPoint" type="airspace:PublishedPointId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="versionNumber" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="routeIndicator" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Point" abstract="false" >
+  <xs:sequence>
+<xs:element name="kind" type="airspace:PointKind" minOccurs="0" maxOccurs="1"/>
+<xs:element name="refPoint" type="airspace:ReferencePoint" minOccurs="0" maxOccurs="1"/>
+<xs:element name="geoPoint" type="airspace:GeoPoint" minOccurs="0" maxOccurs="1"/>
+<xs:element name="publishedPoint" type="airspace:PublishedPointId" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GeoPoint" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="airspace:NonPublishedPoint">
+  <xs:sequence>
+<xs:element name="position" type="common:Position" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ICAOPoint" abstract="false" >
+  <xs:sequence>
+<xs:element name="pointId" type="airspace:PublishedPointId" minOccurs="0" maxOccurs="1"/>
+<xs:choice minOccurs="0" maxOccurs="1"><xs:element name="nonPublishedPoint-ReferencePoint" type="airspace:ReferencePoint"/><xs:element name="nonPublishedPoint-GeoPoint" type="airspace:GeoPoint"/></xs:choice>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IRDesignatorFilter" abstract="false" >
+  <xs:sequence>
+<xs:element name="firDesignators" minOccurs="0" maxOccurs="unbounded"><xs:simpleType><xs:restriction base="xs:string"><xs:pattern value="[A-Z]{4}|[A-Z]{1,3}\*"/></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="uirDesignators" minOccurs="0" maxOccurs="unbounded"><xs:simpleType><xs:restriction base="xs:string"><xs:pattern value="[A-Z]{4}|[A-Z]{1,3}\*"/></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="logicalOperator" type="common:LogicalOperator" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IRUUIDFilter" abstract="false" >
+  <xs:sequence>
+<xs:element name="firUUIDs" type="common:UUID" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="uirUUIDs" type="common:UUID" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="logicalOperator" type="common:LogicalOperator" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="NetworkAddress" abstract="false" >
+  <xs:sequence>
+<xs:element name="network" type="airspace:Network" minOccurs="0" maxOccurs="1"/>
+<xs:element name="address" type="airspace:NetworkAddress_DataType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="NonPublishedPoint" abstract="true" >
+  <xs:sequence>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ReferenceLocation" abstract="true" >
+  <xs:sequence>
+<xs:element name="type" type="airspace:ReferenceLocationType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ReferenceLocationAerodrome" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="airspace:ReferenceLocation">
+  <xs:sequence>
+<xs:element name="id" type="airspace:AerodromeICAOId" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ReferenceLocationAerodromeSet" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="airspace:ReferenceLocation">
+  <xs:sequence>
+<xs:element name="id" type="airspace:AerodromeSetId" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ReferenceLocationAirspace" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="airspace:ReferenceLocation">
+  <xs:sequence>
+<xs:element name="id" type="airspace:AirspaceId" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ReferenceLocationPublishedPoint" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="airspace:ReferenceLocation">
+  <xs:sequence>
+<xs:element name="id" type="airspace:PublishedPointId" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ReferenceLocationDBEPoint" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="airspace:ReferenceLocation">
+  <xs:sequence>
+<xs:element name="id" type="airspace:DBEPointId" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="ReferencePoint" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="airspace:NonPublishedPoint">
+  <xs:sequence>
+<xs:element name="reference" type="airspace:PublishedPointId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="bearing" type="common:Bearing" minOccurs="0" maxOccurs="1"/>
+<xs:element name="distance" type="common:DistanceNM" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

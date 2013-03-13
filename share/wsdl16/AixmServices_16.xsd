@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" 
+           targetNamespace="eurocontrol/cfmu/b2b/AixmServices" 
+           xmlns:aixm="eurocontrol/cfmu/b2b/AixmServices"
+           xmlns:common="eurocontrol/cfmu/b2b/CommonServices"
+           xmlns:aixm="http://www.aixm.aero/schema/5.1/message"
+           xmlns:adr="http://www.aixm.aero/schema/5.1/extensions/ADR"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           >
+  <xs:import namespace="eurocontrol/cfmu/b2b/CommonServices" schemaLocation="CommonServices_16.xsd"/>
+  <xs:import namespace="http://www.aixm.aero/schema/5.1/message" schemaLocation="aixm/message/AIXM_BasicMessage.xsd"/>
+  <xs:import namespace="http://www.aixm.aero/schema/5.1/extensions/ADR" schemaLocation="aixm/extensions/ADR/ADR_Features.xsd"/>
+
+  <xs:element name="CACDBulkRequest" type="airspace:CACDBulkRequest"/>
+
+  <xs:element name="CACDAIXMFileListRequest" type="airspace:CACDAIXMFileListRequest"/>
+
+  <xs:element name="AUPChainRetrievalRequest" type="airspace:AUPChainRetrievalRequest"/>
+
+  <xs:element name="AUPRetrievalRequest" type="airspace:AUPRetrievalRequest"/>
+
+  <xs:element name="AUPCreationRequest" type="airspace:AUPCreationRequest"/>
+
+  <xs:element name="AUPUpdateRequest" type="airspace:AUPUpdateRequest"/>
+
+  <xs:element name="AUPValidationRequest" type="airspace:AUPValidationRequest"/>
+
+  <xs:element name="AUPDeletionRequest" type="airspace:AUPDeletionRequest"/>
+
+  <xs:element name="AUPRSAAllocationExpansionRequest" type="airspace:AUPRSAAllocationExpansionRequest"/>
+
+  <xs:element name="AUPServiceConfigurationRequest" type="airspace:AUPServiceConfigurationRequest"/>
+
+  <xs:element name="EAUPChainRetrievalRequest" type="airspace:EAUPChainRetrievalRequest"/>
+
+  <xs:element name="EAUPCDRRequest" type="airspace:EAUPCDRRequest"/>
+
+  <xs:element name="EAUPCDRCompareRequest" type="airspace:EAUPCDRCompareRequest"/>
+
+  <xs:element name="EAUPRSARequest" type="airspace:EAUPRSARequest"/>
+
+  <xs:element name="EAUPRSACompareRequest" type="airspace:EAUPRSACompareRequest"/>
+
+  <xs:element name="CACDBulkReply" type="airspace:CACDBulkReply"/>
+
+  <xs:element name="CACDAIXMFileListReply" type="airspace:CACDAIXMFileListReply"/>
+
+  <xs:element name="AUPChainRetrievalReply" type="airspace:AUPChainRetrievalReply"/>
+
+  <xs:element name="AUPRetrievalReply" type="airspace:AUPRetrievalReply"/>
+
+  <xs:element name="AUPCreationReply" type="airspace:AUPCreationReply"/>
+
+  <xs:element name="AUPUpdateReply" type="airspace:AUPUpdateReply"/>
+
+  <xs:element name="AUPValidationReply" type="airspace:AUPValidationReply"/>
+
+  <xs:element name="AUPDeletionReply" type="airspace:AUPDeletionReply"/>
+
+  <xs:element name="AUPRSAAllocationExpansionReply" type="airspace:AUPRSAAllocationExpansionReply"/>
+
+  <xs:element name="AUPServiceConfigurationReply" type="airspace:AUPServiceConfigurationReply"/>
+
+  <xs:element name="EAUPChainRetrievalReply" type="airspace:EAUPChainRetrievalReply"/>
+
+  <xs:element name="EAUPCDRReply" type="airspace:EAUPCDRReply"/>
+
+  <xs:element name="EAUPCDRCompareReply" type="airspace:EAUPCDRCompareReply"/>
+
+  <xs:element name="EAUPRSAReply" type="airspace:EAUPRSAReply"/>
+
+  <xs:element name="EAUPRSACompareReply" type="airspace:EAUPRSACompareReply"/>
+
+  <xs:simpleType name="AIXMBasicMessageType">
+    <xs:restriction base="aixm:AIXMBasicMessageType">
+
+    </xs:restriction>
+  </xs:simpleType>
+
+
+</xs:schema>

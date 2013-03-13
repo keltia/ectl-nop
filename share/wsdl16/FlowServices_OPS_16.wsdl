@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<definitions 
+             targetNamespace="eurocontrol/cfmu/b2b/FlowServices" 
+             name="FlowServices"
+             xmlns:flow="eurocontrol/cfmu/b2b/FlowServices"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:xs="http://www.w3.org/2001/XMLSchema"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <xs:schema>
+      <xs:import namespace="eurocontrol/cfmu/b2b/FlowServices" schemaLocation="FlowServices_16.xsd"/>
+    </xs:schema>
+  </types>
+
+  <message name="ANMRetrievalRequest">
+    <part name="parameters" element="flow:ANMRetrievalRequest"/>
+  </message>
+  <message name="ANMRetrievalReply">
+    <part name="parameters" element="flow:ANMRetrievalReply"/>
+  </message>
+
+  <portType name="MeasuresService">
+    <operation name="retrieveANM">
+      <input message="flow:ANMRetrievalRequest"/>
+      <output message="flow:ANMRetrievalReply"/>
+    </operation>
+  </portType>
+
+  <binding name="MeasuresPortBinding" type="flow:MeasuresService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="retrieveANM">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+
+  <service name="MeasuresService">
+    <port name="MeasuresPort" binding="flow:MeasuresPortBinding">
+      <soap:address location="https://www.cfmu.eurocontrol.int:16443/B2B_OPS_16/gateway/spec"/>
+      <!--soap:address location="http://dhdv101:27030/CORE/spec"/-->
+    </port>
+  </service>
+
+</definitions>

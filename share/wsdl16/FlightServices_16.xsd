@@ -1,0 +1,2247 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" 
+           targetNamespace="eurocontrol/cfmu/b2b/FlightServices" 
+           xmlns:flight="eurocontrol/cfmu/b2b/FlightServices"
+           xmlns:common="eurocontrol/cfmu/b2b/CommonServices"
+           xmlns:airspace="eurocontrol/cfmu/b2b/AirspaceServices"
+           xmlns:flow="eurocontrol/cfmu/b2b/FlowServices"
+           xmlns:aixm="http://www.aixm.aero/schema/5.1/message"
+           xmlns:adr="http://www.aixm.aero/schema/5.1/extensions/ADR"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           >
+  <xs:import namespace="eurocontrol/cfmu/b2b/CommonServices" schemaLocation="CommonServices_16.xsd"/>
+  <xs:import namespace="eurocontrol/cfmu/b2b/AirspaceServices" schemaLocation="AirspaceServices_16.xsd"/>
+  <xs:import namespace="eurocontrol/cfmu/b2b/FlowServices" schemaLocation="FlowServices_16.xsd"/>
+  <xs:import namespace="http://www.aixm.aero/schema/5.1/message" schemaLocation="aixm/message/AIXM_BasicMessage.xsd"/>
+  <xs:import namespace="http://www.aixm.aero/schema/5.1/extensions/ADR" schemaLocation="aixm/extensions/ADR/ADR_Features.xsd"/>
+
+  <xs:element name="FlightPlanValidationRequest" type="flight:FlightPlanValidationRequest"/>
+
+  <xs:element name="RoutingAssistanceRequest" type="flight:RoutingAssistanceRequest"/>
+
+  <xs:element name="FlightPlanCreationRequest" type="flight:FlightPlanCreationRequest"/>
+
+  <xs:element name="FlightPlanUpdateRequest" type="flight:FlightPlanUpdateRequest"/>
+
+  <xs:element name="FlightPlanCancellationRequest" type="flight:FlightPlanCancellationRequest"/>
+
+  <xs:element name="FlightDelayRequest" type="flight:FlightDelayRequest"/>
+
+  <xs:element name="FlightDepartureRequest" type="flight:FlightDepartureRequest"/>
+
+  <xs:element name="FlightArrivalRequest" type="flight:FlightArrivalRequest"/>
+
+  <xs:element name="FilingStatusRequest" type="flight:FilingStatusRequest"/>
+
+  <xs:element name="FlightPlanListRequest" type="flight:FlightPlanListRequest"/>
+
+  <xs:element name="FlightListByKeysRequest" type="flight:FlightListByKeysRequest"/>
+
+  <xs:element name="FlightListByLocationRequest" type="flight:FlightListByLocationRequest"/>
+
+  <xs:element name="FlightListByAerodromeRequest" type="flight:FlightListByAerodromeRequest"/>
+
+  <xs:element name="FlightListByAerodromeSetRequest" type="flight:FlightListByAerodromeSetRequest"/>
+
+  <xs:element name="FlightListByAirspaceRequest" type="flight:FlightListByAirspaceRequest"/>
+
+  <xs:element name="FlightListByPointRequest" type="flight:FlightListByPointRequest"/>
+
+  <xs:element name="FlightListByTrafficVolumeRequest" type="flight:FlightListByTrafficVolumeRequest"/>
+
+  <xs:element name="FlightListByAircraftOperatorRequest" type="flight:FlightListByAircraftOperatorRequest"/>
+
+  <xs:element name="FlightRetrievalRequest" type="flight:FlightRetrievalRequest"/>
+
+  <xs:element name="FlightPlanValidationReply" type="flight:FlightPlanValidationReply"/>
+
+  <xs:element name="RoutingAssistanceReply" type="flight:RoutingAssistanceReply"/>
+
+  <xs:element name="FlightPlanCreationReply" type="flight:FlightPlanCreationReply"/>
+
+  <xs:element name="FlightPlanUpdateReply" type="flight:FlightPlanUpdateReply"/>
+
+  <xs:element name="FlightPlanCancellationReply" type="flight:FlightPlanCancellationReply"/>
+
+  <xs:element name="FlightDelayReply" type="flight:FlightDelayReply"/>
+
+  <xs:element name="FlightDepartureReply" type="flight:FlightDepartureReply"/>
+
+  <xs:element name="FlightArrivalReply" type="flight:FlightArrivalReply"/>
+
+  <xs:element name="FilingStatusReply" type="flight:FilingStatusReply"/>
+
+  <xs:element name="FlightPlanListReply" type="flight:FlightPlanListReply"/>
+
+  <xs:element name="FlightListByKeysReply" type="flight:FlightListByKeysReply"/>
+
+  <xs:element name="FlightListByAerodromeReply" type="flight:FlightListByAerodromeReply"/>
+
+  <xs:element name="FlightListByAerodromeSetReply" type="flight:FlightListByAerodromeSetReply"/>
+
+  <xs:element name="FlightListByAirspaceReply" type="flight:FlightListByAirspaceReply"/>
+
+  <xs:element name="FlightListByPointReply" type="flight:FlightListByPointReply"/>
+
+  <xs:element name="FlightListByTrafficVolumeReply" type="flight:FlightListByTrafficVolumeReply"/>
+
+  <xs:element name="FlightListByAircraftOperatorReply" type="flight:FlightListByAircraftOperatorReply"/>
+
+  <xs:element name="FlightRetrievalReply" type="flight:FlightRetrievalReply"/>
+
+  <xs:simpleType name="AircraftICAOId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="2"/><xs:maxLength value="7"/><xs:pattern value="[a-zA-Z0-9]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ExtendedAircraftId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="2"/><xs:maxLength value="7"/><xs:pattern value="[a-zA-Z0-9|\\$|\\#]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AircraftOperatorICAOId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="3"/><xs:maxLength value="3"/><xs:pattern value="[a-zA-Z]{3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AircraftRegistrationMark">
+    <xs:restriction base="xs:string">
+<xs:minLength value="1"/><xs:maxLength value="7"/><xs:pattern value="[a-zA-Z0-9]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AircraftTypeICAOId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="2"/><xs:maxLength value="4"/><xs:pattern value="[a-zA-Z]{1}[a-zA-Z0-9]{1,3}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="Colour_DataType">
+    <xs:restriction base="xs:string">
+<xs:minLength value="1"/><xs:maxLength value="51"/><xs:pattern value="[a-zA-Z0-9]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FilingId">
+    <xs:restriction base="xs:string">
+<xs:pattern value=".{10}|.{20}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="ICAOAircraftAddress">
+    <xs:restriction base="xs:string">
+<xs:minLength value="24"/><xs:maxLength value="24"/><xs:pattern value="[a-zA-Z]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="IFPLId">
+    <xs:restriction base="xs:string">
+<xs:minLength value="10"/><xs:maxLength value="10"/><xs:pattern value="[a-zA-Z]{2}[0-9]{8}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="NumberOfDinghies_DataType">
+    <xs:restriction base="xs:int">
+
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="OtherDesignation_DataType">
+    <xs:restriction base="xs:string">
+<xs:minLength value="1"/><xs:maxLength value="50"/><xs:pattern value=".*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="SSRCode">
+    <xs:restriction base="xs:string">
+<xs:minLength value="4"/><xs:maxLength value="4"/><xs:pattern value="[1-9]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TotalCapacity_DataType">
+    <xs:restriction base="xs:int">
+
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FreezePoint">
+    <xs:restriction base="xs:string">
+<xs:minLength value="0"/><xs:maxLength value="15"/><xs:pattern value=".*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="StayInformation_DataType">
+    <xs:restriction base="xs:string">
+<xs:minLength value="0"/><xs:maxLength value="50"/><xs:pattern value=".*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="AircraftOperatorName_DataType">
+    <xs:restriction base="xs:string">
+<xs:minLength value="0"/><xs:maxLength value="50"/><xs:pattern value=".*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="FlightRules">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="VFR_THEN_IFR"/>
+          <xs:enumeration value="IFR_THEN_VFR"/>
+          <xs:enumeration value="VFR"/>
+          <xs:enumeration value="IFR"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="WakeTurbulenceCategory">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="LIGHT"/>
+          <xs:enumeration value="MEDIUM"/>
+          <xs:enumeration value="HEAVY"/>
+          <xs:enumeration value="SUPER"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="AerodromeRole">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="DEPARTURE"/>
+          <xs:enumeration value="ARRIVAL"/>
+          <xs:enumeration value="BOTH"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="ATFMMessageType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="DES"/>
+          <xs:enumeration value="ERR"/>
+          <xs:enumeration value="FCM"/>
+          <xs:enumeration value="FUM"/>
+          <xs:enumeration value="FLS"/>
+          <xs:enumeration value="REA"/>
+          <xs:enumeration value="RFI"/>
+          <xs:enumeration value="RJT"/>
+          <xs:enumeration value="RRN"/>
+          <xs:enumeration value="RRP"/>
+          <xs:enumeration value="SAM"/>
+          <xs:enumeration value="SIP"/>
+          <xs:enumeration value="SLC"/>
+          <xs:enumeration value="SMM"/>
+          <xs:enumeration value="SPA"/>
+          <xs:enumeration value="SRJ"/>
+          <xs:enumeration value="SRM"/>
+          <xs:enumeration value="SWM"/>
+          <xs:enumeration value="UNK"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FlightEventType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ACH"/>
+          <xs:enumeration value="ADI"/>
+          <xs:enumeration value="AFI"/>
+          <xs:enumeration value="APL"/>
+          <xs:enumeration value="APR"/>
+          <xs:enumeration value="ATT"/>
+          <xs:enumeration value="AXT"/>
+          <xs:enumeration value="CAL"/>
+          <xs:enumeration value="CDI"/>
+          <xs:enumeration value="CEO"/>
+          <xs:enumeration value="CMC"/>
+          <xs:enumeration value="CMN"/>
+          <xs:enumeration value="CNC"/>
+          <xs:enumeration value="CPR"/>
+          <xs:enumeration value="CPT"/>
+          <xs:enumeration value="XCR"/>
+          <xs:enumeration value="CRL"/>
+          <xs:enumeration value="CRQ"/>
+          <xs:enumeration value="CSC"/>
+          <xs:enumeration value="CSU"/>
+          <xs:enumeration value="CTD"/>
+          <xs:enumeration value="EDI"/>
+          <xs:enumeration value="EMR"/>
+          <xs:enumeration value="FCM"/>
+          <xs:enumeration value="FDI"/>
+          <xs:enumeration value="FLS"/>
+          <xs:enumeration value="FSA"/>
+          <xs:enumeration value="FUM"/>
+          <xs:enumeration value="IAR"/>
+          <xs:enumeration value="ICA"/>
+          <xs:enumeration value="ICH"/>
+          <xs:enumeration value="IDE"/>
+          <xs:enumeration value="IDL"/>
+          <xs:enumeration value="IFP"/>
+          <xs:enumeration value="MET"/>
+          <xs:enumeration value="MSG"/>
+          <xs:enumeration value="NEV"/>
+          <xs:enumeration value="OAR"/>
+          <xs:enumeration value="OCA"/>
+          <xs:enumeration value="ODA"/>
+          <xs:enumeration value="OEX"/>
+          <xs:enumeration value="OIC"/>
+          <xs:enumeration value="ORX"/>
+          <xs:enumeration value="PTD"/>
+          <xs:enumeration value="PTX"/>
+          <xs:enumeration value="REA"/>
+          <xs:enumeration value="RFR"/>
+          <xs:enumeration value="RJT"/>
+          <xs:enumeration value="RLR"/>
+          <xs:enumeration value="RPL"/>
+          <xs:enumeration value="RRM"/>
+          <xs:enumeration value="RSI"/>
+          <xs:enumeration value="RSU"/>
+          <xs:enumeration value="RWI"/>
+          <xs:enumeration value="SCA"/>
+          <xs:enumeration value="SCM"/>
+          <xs:enumeration value="SIP"/>
+          <xs:enumeration value="SIT"/>
+          <xs:enumeration value="SMM"/>
+          <xs:enumeration value="SPA"/>
+          <xs:enumeration value="SRJ"/>
+          <xs:enumeration value="SSC"/>
+          <xs:enumeration value="SSM"/>
+          <xs:enumeration value="SSR"/>
+          <xs:enumeration value="SUS"/>
+          <xs:enumeration value="TAC"/>
+          <xs:enumeration value="TAM"/>
+          <xs:enumeration value="TDE"/>
+          <xs:enumeration value="TDI"/>
+          <xs:enumeration value="TPF"/>
+          <xs:enumeration value="TRC"/>
+          <xs:enumeration value="TRM"/>
+          <xs:enumeration value="TSA"/>
+          <xs:enumeration value="TSC"/>
+          <xs:enumeration value="TTE"/>
+          <xs:enumeration value="UFA"/>
+          <xs:enumeration value="UXC"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FlightState">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="PLANNED"/>
+          <xs:enumeration value="PLANNED_SLOT_ALLOCATED"/>
+          <xs:enumeration value="PLANNED_REROUTED"/>
+          <xs:enumeration value="PLANNED_SLOT_ALLOCATED_REROUTED"/>
+          <xs:enumeration value="FILED"/>
+          <xs:enumeration value="FILED_SLOT_ALLOCATED"/>
+          <xs:enumeration value="FILED_SLOT_ISSUED"/>
+          <xs:enumeration value="TACT_ACTIVATED"/>
+          <xs:enumeration value="ATC_ACTIVATED"/>
+          <xs:enumeration value="CANCELLED"/>
+          <xs:enumeration value="TERMINATED"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="CDMStatus">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="DEPARTING_FROM_STANDARD_AIRPORT"/>
+          <xs:enumeration value="DEPARTING_FROM_CDM_AIRPORT"/>
+          <xs:enumeration value="ESTIMATED"/>
+          <xs:enumeration value="TARGETED"/>
+          <xs:enumeration value="PRE_SEQUENCED"/>
+          <xs:enumeration value="ACTUAL_OFFBLOCK"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="CFMUExemptionSTSIndicator">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="EMER"/>
+          <xs:enumeration value="EXM833"/>
+          <xs:enumeration value="PROTECTED"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="CorrectibleFlightPlanMessage">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="FPL"/>
+          <xs:enumeration value="CHG"/>
+          <xs:enumeration value="CNL"/>
+          <xs:enumeration value="DLA"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="DepartureStatus">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="OK"/>
+          <xs:enumeration value="DEICING"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="EquipmentStatus">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="EQUIPPED"/>
+          <xs:enumeration value="NOT_EQUIPPED"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FAMStatus">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="AIRBORNE_WHEN_SUSPENDED_BY_FAM"/>
+          <xs:enumeration value="AIRBORNE_WHEN_SHIFTED_BY_FAM"/>
+          <xs:enumeration value="SUBJECT_TO_FAM"/>
+          <xs:enumeration value="WAS_SUBJECT_TO_FAM"/>
+          <xs:enumeration value="NOT_UNDER_FAM"/>
+          <xs:enumeration value="SHIFTED_BY_FAM"/>
+          <xs:enumeration value="WAS_SHIFTED_BY_FAM"/>
+          <xs:enumeration value="SUSPENDED_BY_FAM"/>
+          <xs:enumeration value="WAS_SUSPENDED_BY_FAM"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FilingRule">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="NOT_AUTHORISED"/>
+          <xs:enumeration value="OPERATOR_MUST_REFILE"/>
+          <xs:enumeration value="FILING_ALLOWED_BY_AO_CFMU"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FilingStatus">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="VALID"/>
+          <xs:enumeration value="INVALID_QUEUED_FOR_CORRECTION"/>
+          <xs:enumeration value="INVALID_REJECTED"/>
+          <xs:enumeration value="BACKUP"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FlightDataset">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="flightPlan"/>
+          <xs:enumeration value="flightPlanHistory"/>
+          <xs:enumeration value="flight"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FlightField">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="divertedAerodromeOfDestination"/>
+          <xs:enumeration value="readyEstimatedOffBlockTime"/>
+          <xs:enumeration value="cdmEstimatedOffBlockTime"/>
+          <xs:enumeration value="aircraftType"/>
+          <xs:enumeration value="estimatedTakeOffTime"/>
+          <xs:enumeration value="calculatedTakeOffTime"/>
+          <xs:enumeration value="actualTakeOffTime"/>
+          <xs:enumeration value="ctotShiftAlreadyAppliedByTower"/>
+          <xs:enumeration value="taxiTime"/>
+          <xs:enumeration value="currentlyUsedTaxiTime"/>
+          <xs:enumeration value="revisionTimes"/>
+          <xs:enumeration value="estimatedTimeOfArrival"/>
+          <xs:enumeration value="calculatedTimeOfArrival"/>
+          <xs:enumeration value="actualTimeOfArrival"/>
+          <xs:enumeration value="requestedFlightLevel"/>
+          <xs:enumeration value="timeAtReferenceLocation"/>
+          <xs:enumeration value="flightLevelAtReferenceLocation"/>
+          <xs:enumeration value="trendAtReferenceLocationEntry"/>
+          <xs:enumeration value="trendAtReferenceLocationExit"/>
+          <xs:enumeration value="lateFiler"/>
+          <xs:enumeration value="lateUpdater"/>
+          <xs:enumeration value="suspensionStatus"/>
+          <xs:enumeration value="suspensionResponseBy"/>
+          <xs:enumeration value="exclusionFromRegulations"/>
+          <xs:enumeration value="famStatus"/>
+          <xs:enumeration value="readyStatus"/>
+          <xs:enumeration value="aircraftOperator"/>
+          <xs:enumeration value="operatingAircraftOperator"/>
+          <xs:enumeration value="reroutingIndicator"/>
+          <xs:enumeration value="newRouteMinShiftDelayImprovement"/>
+          <xs:enumeration value="reroutable"/>
+          <xs:enumeration value="reroutingOpportunitiesExist"/>
+          <xs:enumeration value="cdm"/>
+          <xs:enumeration value="slotIssued"/>
+          <xs:enumeration value="slotImprovementProposal"/>
+          <xs:enumeration value="exemptedFromRegulations"/>
+          <xs:enumeration value="delay"/>
+          <xs:enumeration value="mostPenalisingRegulation"/>
+          <xs:enumeration value="hasOtherRegulations"/>
+          <xs:enumeration value="regulationLocations"/>
+          <xs:enumeration value="lastATFMMessageType"/>
+          <xs:enumeration value="lastATFMMessageReceivedOrSent"/>
+          <xs:enumeration value="runwayVisualRange"/>
+          <xs:enumeration value="confirmedCTFM"/>
+          <xs:enumeration value="requestedInitialFlightLevel"/>
+          <xs:enumeration value="requestedInitialSpeed"/>
+          <xs:enumeration value="estimatedElapsedTime"/>
+          <xs:enumeration value="filingRule"/>
+          <xs:enumeration value="flightPlanOriginator"/>
+          <xs:enumeration value="icaoRoute"/>
+          <xs:enumeration value="routeLength"/>
+          <xs:enumeration value="reroutingReference"/>
+          <xs:enumeration value="defaultReroutingRequestedFlightLevel"/>
+          <xs:enumeration value="defaultReroutingRequestedSpeed"/>
+          <xs:enumeration value="departureTolerance"/>
+          <xs:enumeration value="mostPenalisingRegulationCause"/>
+          <xs:enumeration value="lastATFMMessageOriginator"/>
+          <xs:enumeration value="ftfmPointProfile"/>
+          <xs:enumeration value="rtfmPointProfile"/>
+          <xs:enumeration value="ctfmPointProfile"/>
+          <xs:enumeration value="ftfmAirspaceProfile"/>
+          <xs:enumeration value="rtfmAirspaceProfile"/>
+          <xs:enumeration value="ctfmAirspaceProfile"/>
+          <xs:enumeration value="ftfmRequestedFlightLevels"/>
+          <xs:enumeration value="rtfmRequestedFlightLevels"/>
+          <xs:enumeration value="ctfmRequestedFlightLevels"/>
+          <xs:enumeration value="flightHistory"/>
+          <xs:enumeration value="operationalLog"/>
+          <xs:enumeration value="equipmentCapabilityAndStatus"/>
+          <xs:enumeration value="ftfmRestrictionProfile"/>
+          <xs:enumeration value="rtfmRestrictionProfile"/>
+          <xs:enumeration value="ctfmRestrictionProfile"/>
+          <xs:enumeration value="cfmuFlightType"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FlightOperationalLogEntryType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="UNDEFINED"/>
+          <xs:enumeration value="INCOMING_MESSAGE"/>
+          <xs:enumeration value="ERRONEOUS_INCOMING_MESSAGE"/>
+          <xs:enumeration value="OUTGOING_MESSAGE"/>
+          <xs:enumeration value="VIOLATION"/>
+          <xs:enumeration value="HISTORY"/>
+          <xs:enumeration value="WARNING"/>
+          <xs:enumeration value="PROCESS_ERROR"/>
+          <xs:enumeration value="ERROR_MESSAGE"/>
+          <xs:enumeration value="ENVIRONMENT_MESSSAGE"/>
+          <xs:enumeration value="USER_COMMAND"/>
+          <xs:enumeration value="TEXT_MESSAGE"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FlightPlanMessageType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="FPL"/>
+          <xs:enumeration value="CHG"/>
+          <xs:enumeration value="CNL"/>
+          <xs:enumeration value="DLA"/>
+          <xs:enumeration value="DEP"/>
+          <xs:enumeration value="ARR"/>
+          <xs:enumeration value="RQP"/>
+          <xs:enumeration value="RQS"/>
+          <xs:enumeration value="FNM"/>
+          <xs:enumeration value="MFS"/>
+          <xs:enumeration value="APL"/>
+          <xs:enumeration value="ACH"/>
+          <xs:enumeration value="AFP"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FlightPlanMessageStatus">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="INVALID"/>
+          <xs:enumeration value="REJECTED"/>
+          <xs:enumeration value="REFERRED"/>
+          <xs:enumeration value="DELETED"/>
+          <xs:enumeration value="DISCARD"/>
+          <xs:enumeration value="MUTIPLE"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FlightTrend">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="CRUISE"/>
+          <xs:enumeration value="CLIMB"/>
+          <xs:enumeration value="DESCENT"/>
+          <xs:enumeration value="NONE"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FlightType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="SCHEDULED"/>
+          <xs:enumeration value="NOT_SCHEDULED"/>
+          <xs:enumeration value="GENERAL"/>
+          <xs:enumeration value="MILITARY"/>
+          <xs:enumeration value="OTHER"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="FrequencyOnAircraft">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="UHF"/>
+          <xs:enumeration value="VHF"/>
+          <xs:enumeration value="ELT"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="ICAOSTSIndicator">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ATFMX"/>
+          <xs:enumeration value="HEAD"/>
+          <xs:enumeration value="HOSP"/>
+          <xs:enumeration value="HUM"/>
+          <xs:enumeration value="NONRVSM"/>
+          <xs:enumeration value="SAR"/>
+          <xs:enumeration value="STATE"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="LifeJacketEquipment">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="LIGHTS"/>
+          <xs:enumeration value="FLUORESCEIN"/>
+          <xs:enumeration value="UHF"/>
+          <xs:enumeration value="VHF"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="ReroutableStatus">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="CANNOT_BE_REROUTED"/>
+          <xs:enumeration value="TRY_ALLOWED"/>
+          <xs:enumeration value="TRY_AND_APPLY_ALLOWED"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="ReroutingReason">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ATFM"/>
+          <xs:enumeration value="CEU"/>
+          <xs:enumeration value="AUTO"/>
+          <xs:enumeration value="AO"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="ReroutingState">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="PRODUCED"/>
+          <xs:enumeration value="EXECUTED"/>
+          <xs:enumeration value="TIMED_OUT"/>
+          <xs:enumeration value="REJECTED"/>
+          <xs:enumeration value="REVOKED"/>
+          <xs:enumeration value="NO_MATCH"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="SurvivalEquipment">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="POLAR"/>
+          <xs:enumeration value="DESERT"/>
+          <xs:enumeration value="MARITIME"/>
+          <xs:enumeration value="JUNGLE"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="SuspensionStatus">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="NOT_SUSPENDED"/>
+          <xs:enumeration value="SIT_TIME_OUT"/>
+          <xs:enumeration value="SLOT_MISSED"/>
+          <xs:enumeration value="REGULATION_CONFIRMATION"/>
+          <xs:enumeration value="TRAFFIC_VOLUMES_CONDITION"/>
+          <xs:enumeration value="NOT_REPORTED_AS_AIRBORNE"/>
+          <xs:enumeration value="FLIGHT_PLAN_REVALIDATION"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="TrafficType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="DEMAND"/>
+          <xs:enumeration value="REGULATED_DEMAND"/>
+          <xs:enumeration value="LOAD"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="SSRMode">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="A"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="IFPIndicator">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ROUTE_RAD"/>
+          <xs:enumeration value="ROUTE_WE"/>
+          <xs:enumeration value="ROUTE"/>
+          <xs:enumeration value="AIRCRAFT_TYPE"/>
+          <xs:enumeration value="FLIGHT_LEVEL"/>
+          <xs:enumeration value="EOBDT"/>
+          <xs:enumeration value="NON_833"/>
+          <xs:enumeration value="UNKNOWN_833"/>
+          <xs:enumeration value="NON_RVSM"/>
+          <xs:enumeration value="UNKNOWN_RVSM"/>
+          <xs:enumeration value="RVSM_VIOLATION"/>
+          <xs:enumeration value="MODE_S"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="EntryExit">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ENTRY"/>
+          <xs:enumeration value="EXIT"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="CfmuFlightType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="MFD"/>
+          <xs:enumeration value="IFPL"/>
+          <xs:enumeration value="RPL"/>
+          <xs:enumeration value="ACT"/>
+          <xs:enumeration value="TACT_ACTIVATED"/>
+          <xs:enumeration value="TERMINATED"/>
+          <xs:enumeration value="PREDICTED_FLIGHT"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <xs:simpleType name="DepartureAirportType">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="STANDARD"/>
+          <xs:enumeration value="ADVANCED_ATC_TWR"/>
+          <xs:enumeration value="CDM"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="OTHER:[a-zA-Z_][a-zA-Z0-9_]*"/> 
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+
+
+  <xs:complexType name="FlightPreparation" abstract="false" >
+  <xs:sequence>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightFiling" abstract="false" >
+  <xs:sequence>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightManagement" abstract="false" >
+  <xs:sequence>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanValidationRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="flightPlan" type="flight:FlightPlan" minOccurs="0" maxOccurs="1"/>
+<xs:element name="fplMessage" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="preOPSReply" type="flight:FlightPlanValidationReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanValidationReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightPlanValidationReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanValidationReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="ifpsErrors" type="flight:IFPSError" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="icao2012Format" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RoutingAssistanceRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="adepFreezePoint" type="flight:FreezePoint" minOccurs="0" maxOccurs="1"/>
+<xs:element name="adesFreezePoint" type="flight:FreezePoint" minOccurs="0" maxOccurs="1"/>
+<xs:element name="avoidAirspaces" type="airspace:AirspaceId" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="avoidPoints" type="airspace:AirspaceId" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="flightPlan" type="flight:FlightPlan" minOccurs="0" maxOccurs="1"/>
+<xs:element name="fplMessage" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="nbRoutes" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="radOff" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="viaAirspaces" type="airspace:AirspaceId" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="viaPoints" type="airspace:PublishedPointId" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="preOPSReply" type="flight:RoutingAssistanceReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RoutingAssistanceReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:RoutingAssistanceReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="RoutingAssistanceReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="proposedRoutes" type="flight:RouteInfo" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="ifpsErrors" type="flight:IFPSError" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="originalRouteDuration" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="originalRouteLength" type="common:DistanceNM" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FilingRequest" abstract="true" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="additionalAddresses" minOccurs="0" maxOccurs="unbounded"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FilingReplyData" abstract="true" >
+  <xs:sequence>
+<xs:element name="filingStatus" type="flight:FilingStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="validFiling" type="flight:FilingResultValid" minOccurs="0" maxOccurs="1"/>
+<xs:element name="queuedFiling" type="flight:FilingResultQueued" minOccurs="0" maxOccurs="1"/>
+<xs:element name="rejectedFiling" type="flight:FilingResultRejected" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanCreationRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FilingRequest">
+  <xs:sequence>
+<xs:element name="flightPlan" type="flight:FlightPlan" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="flight:FlightPlanCreationReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanCreationReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightPlanCreationReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanCreationReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FilingReplyData">
+  <xs:sequence>
+<xs:element name="flightPlan" type="flight:FlightPlan" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanUpdateRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FilingRequest">
+  <xs:sequence>
+<xs:element name="ifplId" type="flight:IFPLId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightPlanUpdate" type="flight:FlightPlanUpdate" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="flight:FlightPlanUpdateReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanUpdateReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightPlanUpdateReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanUpdateReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FilingReplyData">
+  <xs:sequence>
+<xs:element name="flightPlan" type="flight:FlightPlan" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanCancellationRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FilingRequest">
+  <xs:sequence>
+<xs:element name="ifplId" type="flight:IFPLId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="flight:FlightPlanCancellationReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanCancellationReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightPlanCancellationReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanCancellationReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FilingReplyData">
+  <xs:sequence>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightDelayRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FilingRequest">
+  <xs:sequence>
+<xs:element name="ifplId" type="flight:IFPLId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="newEstimatedOffBlockTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="flight:FlightDelayReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightDelayReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightDelayReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightDelayReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FilingReplyData">
+  <xs:sequence>
+<xs:element name="flightPlan" type="flight:FlightPlan" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightDepartureRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FilingRequest">
+  <xs:sequence>
+<xs:element name="ifplId" type="flight:IFPLId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="actualTimeOfDeparture" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="flight:FlightDepartureReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightDepartureReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightDepartureReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightDepartureReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FilingReplyData">
+  <xs:sequence>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightArrivalRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FilingRequest">
+  <xs:sequence>
+<xs:element name="ifplId" type="flight:IFPLId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="actualTimeOfArrival" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="actualAerodromeOfArrival" type="flight:Aerodrome" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="flight:FlightArrivalReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightArrivalReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightArrivalReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightArrivalReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FilingReplyData">
+  <xs:sequence>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FilingStatusRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="filingId" type="flight:FilingId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="flight:FilingStatusReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FilingStatusReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FilingStatusReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FilingStatusReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FilingReplyData">
+  <xs:sequence>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanListRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="aircraftId" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="aerodromeOfDeparture" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="nonICAOAerodromeOfDeparture" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="airFiled" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="aerodromeOfDestination" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="nonICAOAerodromeOfDestination" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="estimatedOffBlockTime" type="common:DateTimeMinutePeriod" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="flight:FlightPlanListReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanListReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightPlanListReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanListReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="summaries" type="flight:FlightPlanOrInvalidFiling" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListRequest" abstract="true" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="trafficType" type="flight:TrafficType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="trafficWindow" type="common:DateTimeMinutePeriod" minOccurs="0" maxOccurs="1"/>
+<xs:element name="requestedFlightFields" type="flight:FlightField" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListReplyData" abstract="true" >
+  <xs:sequence>
+<xs:element name="flights" type="flight:FlightOrFlightPlan" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByKeysRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListRequest">
+  <xs:sequence>
+<xs:element name="aircraftId" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="aerodromeOfDeparture" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="nonICAOAerodromeOfDeparture" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="airFiled" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="aerodromeOfDestination" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="nonICAOAerodromeOfDestination" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="returnFlightPlans" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="preOPSReply" type="flight:FlightListByKeysReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByKeysReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightListByKeysReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByKeysReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListReplyData">
+  <xs:sequence>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByLocationRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListRequest">
+  <xs:sequence>
+<xs:element name="aircraftOperators" type="flight:AircraftOperatorICAOId" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByAerodromeRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListByLocationRequest">
+  <xs:sequence>
+<xs:element name="aerodrome" type="airspace:AerodromeICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aerodromeRole" type="flight:AerodromeRole" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="flight:FlightListByAerodromeReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByAerodromeReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightListByAerodromeReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByAerodromeReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListReplyData">
+  <xs:sequence>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByAerodromeSetRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListByLocationRequest">
+  <xs:sequence>
+<xs:element name="aerodromeSet" type="airspace:AerodromeSetId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aerodromeRole" type="flight:AerodromeRole" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="flight:FlightListByAerodromeSetReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByAerodromeSetReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightListByAerodromeSetReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByAerodromeSetReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListReplyData">
+  <xs:sequence>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByAirspaceRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListByLocationRequest">
+  <xs:sequence>
+<xs:element name="airspace" type="airspace:AirspaceId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="flight:FlightListByAirspaceReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByAirspaceReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightListByAirspaceReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByAirspaceReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListReplyData">
+  <xs:sequence>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByPointRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListByLocationRequest">
+  <xs:sequence>
+<xs:element name="point" type="airspace:PublishedPointId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightLevelRange" type="airspace:FlightLevelRange" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="flight:FlightListByPointReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByPointReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightListByPointReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByPointReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListReplyData">
+  <xs:sequence>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByTrafficVolumeRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListByLocationRequest">
+  <xs:sequence>
+<xs:element name="trafficVolume" type="airspace:TrafficVolumeId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flow" type="airspace:FlowId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="preOPSReply" type="flight:FlightListByTrafficVolumeReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByTrafficVolumeReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightListByTrafficVolumeReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByTrafficVolumeReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListReplyData">
+  <xs:sequence>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByAircraftOperatorRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListByLocationRequest">
+  <xs:sequence>
+<xs:element name="preOPSReply" type="flight:FlightListByAircraftOperatorReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByAircraftOperatorReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightListByAircraftOperatorReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightListByAircraftOperatorReplyData" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="flight:FlightListReplyData">
+  <xs:sequence>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightRetrievalRequest" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Request">
+  <xs:sequence>
+<xs:element name="flightId" type="flight:FlightIdentification" minOccurs="0" maxOccurs="1"/>
+<xs:element name="requestedFlightDatasets" type="flight:FlightDataset" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="requestedFlightFields" type="flight:FlightField" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="preOPSReply" type="flight:FlightRetrievalReply" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightRetrievalReply" abstract="false" >
+    <xs:complexContent>
+      <xs:extension base="common:Reply">
+  <xs:sequence>
+<xs:element name="data" type="flight:FlightRetrievalReplyData" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="FlightRetrievalReplyData" abstract="false" >
+  <xs:sequence>
+<xs:element name="flightPlan" type="flight:FlightPlan" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightPlanHistory" type="flight:FlightPlanHistory" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flight" type="flight:Flight" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Aerodrome" abstract="false" >
+  <xs:sequence>
+<xs:element name="icaoId" type="airspace:AerodromeICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="otherDesignation" type="flight:OtherDesignation_DataType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AerodromesOfDestination" abstract="false" >
+  <xs:sequence>
+<xs:element name="aerodromeOfDestination" type="flight:Aerodrome" minOccurs="0" maxOccurs="1"/>
+<xs:element name="alternate1" type="flight:Aerodrome" minOccurs="0" maxOccurs="1"/>
+<xs:element name="alternate2" type="flight:Aerodrome" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AircraftIdentification" abstract="false" >
+  <xs:sequence>
+<xs:element name="aircraftId" type="flight:AircraftICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="registrationMark" type="flight:AircraftRegistrationMark" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aircraftAddress" type="flight:ICAOAircraftAddress" minOccurs="0" maxOccurs="1"/>
+<xs:element name="ssrInfo" type="flight:SSRInfo" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AircraftIdentificationUpdate" abstract="false" >
+  <xs:sequence>
+<xs:element name="registrationMark" type="flight:AircraftRegistrationMark" minOccurs="0" maxOccurs="1"/>
+<xs:element name="registrationMark_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aircraftAddress" type="flight:ICAOAircraftAddress" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aircraftAddress_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="ssrInfo" type="flight:SSRInfo" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AircraftType" abstract="false" >
+  <xs:sequence>
+<xs:element name="icaoId" type="flight:AircraftTypeICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="otherDesignation" type="flight:OtherDesignation_DataType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AirFiledData" abstract="false" >
+  <xs:sequence>
+<xs:element name="atsUnitId" type="flight:OtherDesignation_DataType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="startingPoint" type="airspace:Point" minOccurs="0" maxOccurs="1"/>
+<xs:element name="clearedLevel" type="airspace:FlightLevel" minOccurs="0" maxOccurs="1"/>
+<xs:element name="estimatedTimeOver" type="common:DateTimeSecond" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CDM" abstract="false" >
+  <xs:sequence>
+<xs:element name="status" type="flight:CDMStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="airportType" type="flight:DepartureAirportType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="provisionalInfo" type="flight:CDMProvisionalInfo" minOccurs="0" maxOccurs="1"/>
+<xs:element name="info" type="flight:CDMInfo" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CDMInfo" abstract="false" >
+  <xs:sequence>
+<xs:element name="earlyTargetTakeOffTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aoTargetTakeOffTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="atcTargetTakeOffTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="sequencedTargetTakeOffTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="taxiTime" type="common:DurationHourMinuteSecond" minOccurs="0" maxOccurs="1"/>
+<xs:element name="offBlockTimeDiscrepancy" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="departureProcedure" type="airspace:ProcedureICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aircraftTypeDiscrepancy" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="aircraftType" type="flight:AircraftType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="registrationMark" type="flight:AircraftRegistrationMark" minOccurs="0" maxOccurs="1"/>
+<xs:element name="registrationMarkDiscrepancy" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="noSlotBefore" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="departureStatus" type="flight:DepartureStatus" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CDMProvisionalInfo" abstract="false" >
+  <xs:sequence>
+<xs:element name="timestamp" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aoTargetTakeOffTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="taxiTime" type="common:DurationHourMinuteSecond" minOccurs="0" maxOccurs="1"/>
+<xs:element name="departureProcedure" type="airspace:ProcedureICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aircraftType" type="flight:AircraftType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="registrationMark" type="flight:AircraftRegistrationMark" minOccurs="0" maxOccurs="1"/>
+<xs:element name="departureStatus" type="flight:DepartureStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="mostPenalisingRegulation" type="flow:RegulationId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="possibleCFMUTakeOffTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="suspensionStatus" type="flight:SuspensionStatus" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DepartureTolerance" abstract="false" >
+  <xs:sequence>
+<xs:element name="toleranceWindow" type="common:TimeHourMinutePeriod" minOccurs="0" maxOccurs="1"/>
+<xs:element name="extended" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Dinghies" abstract="false" >
+  <xs:sequence>
+<xs:element name="numberOfDinghies" type="flight:NumberOfDinghies_DataType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="totalCapacity" type="flight:TotalCapacity_DataType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="areCovered" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="colour" type="flight:Colour_DataType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DatalinkCapabilities" abstract="false" >
+  <xs:sequence>
+<xs:element name="satellite" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="hf" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="vhf" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="ssrModeS" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EquipmentCapabilityAndStatus" abstract="false" >
+  <xs:sequence>
+<xs:element name="gbas" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="lpv" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="loranC" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="dme" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="adf" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="gnss" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="hfRtf" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="inertialNavigation" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="datalink" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="mls" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="ils" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="omega" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="vor" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="rcp" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="rnp" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="standard" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="tacan" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="uhfRtf" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="vhfRtf" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="rvsm" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="mnps" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="khz833" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="other" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EstimatedElapsedTimeAtLocation" abstract="false" >
+  <xs:sequence>
+<xs:element name="elapsedTime" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="fir" type="airspace:FIRICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="point" type="airspace:Point" minOccurs="0" maxOccurs="1"/>
+<xs:element name="latitude" type="common:Latitude" minOccurs="0" maxOccurs="1"/>
+<xs:element name="longitude" type="common:Longitude" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ExclusionFromRegulations" abstract="false" >
+  <xs:sequence>
+<xs:element name="onTrafficVolume" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="count" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="all" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="hasBeenExcluded" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FilingResultQueued" abstract="false" >
+  <xs:sequence>
+<xs:element name="filingId" type="flight:FilingId" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FilingResultRejected" abstract="false" >
+  <xs:sequence>
+<xs:element name="ifpsErrors" type="flight:IFPSError" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FilingResultValid" abstract="false" >
+  <xs:sequence>
+<xs:element name="ifplId" type="flight:IFPLId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="cfmuChange" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="ifpIndicators" type="flight:IFPIndicator" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="comments" minOccurs="0" maxOccurs="unbounded"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="Flight" abstract="false" >
+  <xs:sequence>
+<xs:element name="flightId" type="flight:FlightIdentification" minOccurs="0" maxOccurs="1"/>
+<xs:element name="divertedAerodromeOfDestination" type="airspace:AerodromeICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aircraftType" type="flight:AircraftTypeICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="readyEstimatedOffBlockTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="cdmEstimatedOffBlockTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="revisionTimes" type="flight:RevisionTimes" minOccurs="0" maxOccurs="1"/>
+<xs:element name="estimatedTakeOffTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="calculatedTakeOffTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="actualTakeOffTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="ctotShiftAlreadyAppliedByTower" type="common:ShiftHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="requestedFlightLevel" type="airspace:FlightLevel" minOccurs="0" maxOccurs="1"/>
+<xs:element name="taxiTime" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="currentlyUsedTaxiTime" type="common:DurationHourMinuteSecond" minOccurs="0" maxOccurs="1"/>
+<xs:element name="estimatedTimeOfArrival" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="calculatedTimeOfArrival" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="actualTimeOfArrival" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="lateFiler" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="lateUpdater" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="suspensionStatus" type="flight:SuspensionStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="suspensionResponseBy" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="famStatus" type="flight:FAMStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="readyStatus" type="flight:ReadyStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aircraftOperator" type="flight:AircraftOperatorICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="operatingAircraftOperator" type="flight:AircraftOperatorICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="reroutingIndicator" type="flight:ReroutingIndicator" minOccurs="0" maxOccurs="1"/>
+<xs:element name="newRouteMinShiftDelayImprovement" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="reroutable" type="flight:ReroutableStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="reroutingOpportunitiesExist" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="cdm" type="flight:CDM" minOccurs="0" maxOccurs="1"/>
+<xs:element name="slotIssued" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="slotImprovementProposal" type="flight:SlotImprovementProposal" minOccurs="0" maxOccurs="1"/>
+<xs:element name="timeAtReferenceLocation" type="flight:TimeAndModel" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightLevelAtReferenceLocation" type="airspace:FlightLevel" minOccurs="0" maxOccurs="1"/>
+<xs:element name="trendAtReferenceLocationEntry" type="flight:FlightTrend" minOccurs="0" maxOccurs="1"/>
+<xs:element name="trendAtReferenceLocationExit" type="flight:FlightTrend" minOccurs="0" maxOccurs="1"/>
+<xs:element name="exemptedFromRegulations" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="delay" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="mostPenalisingRegulation" type="flow:RegulationId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="hasOtherRegulations" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="regulationLocations" type="flow:RegulationLocation" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="lastATFMMessageType" type="flight:ATFMMessageType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="lastATFMMessageReceivedOrSent" type="common:ReceivedOrSent" minOccurs="0" maxOccurs="1"/>
+<xs:element name="runwayVisualRange" type="common:DistanceM" minOccurs="0" maxOccurs="1"/>
+<xs:element name="confirmedCTFM" type="common:DistanceNM" minOccurs="0" maxOccurs="1"/>
+<xs:element name="exclusionFromRegulations" type="flight:ExclusionFromRegulations" minOccurs="0" maxOccurs="1"/>
+<xs:element name="requestedInitialFlightLevel" type="airspace:FlightLevel" minOccurs="0" maxOccurs="1"/>
+<xs:element name="requestedInitialSpeed" type="airspace:AirSpeed" minOccurs="0" maxOccurs="1"/>
+<xs:element name="estimatedElapsedTime" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="filingRule" type="flight:FilingRule" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightPlanOriginator" type="flight:MessageOriginator" minOccurs="0" maxOccurs="1"/>
+<xs:element name="icaoRoute" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="routeLength" type="common:DistanceNM" minOccurs="0" maxOccurs="1"/>
+<xs:element name="reroutingReference" type="flight:ReroutingReference" minOccurs="0" maxOccurs="1"/>
+<xs:element name="defaultReroutingRequestedFlightLevel" type="airspace:FlightLevel" minOccurs="0" maxOccurs="1"/>
+<xs:element name="defaultReroutingRequestedSpeed" type="airspace:AirSpeed" minOccurs="0" maxOccurs="1"/>
+<xs:element name="departureTolerance" type="flight:DepartureTolerance" minOccurs="0" maxOccurs="1"/>
+<xs:element name="mostPenalisingRegulationCause" type="flow:RegulationCause" minOccurs="0" maxOccurs="1"/>
+<xs:element name="lastATFMMessageOriginator" type="flight:MessageOriginator" minOccurs="0" maxOccurs="1"/>
+<xs:element name="ftfmPointProfile" type="flight:FlightPoint" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="rtfmPointProfile" type="flight:FlightPoint" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="ctfmPointProfile" type="flight:FlightPoint" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="ftfmAirspaceProfile" type="flight:FlightAirspace" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="rtfmAirspaceProfile" type="flight:FlightAirspace" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="ctfmAirspaceProfile" type="flight:FlightAirspace" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="ftfmRequestedFlightLevels" type="flight:RequestedFlightLevel" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="rtfmRequestedFlightLevels" type="flight:RequestedFlightLevel" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="ctfmRequestedFlightLevels" type="flight:RequestedFlightLevel" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="flightHistory" type="flight:FlightEvent" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="entries" type="flight:FlightOperationalLogEntry" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="equipmentCapabilityAndStatus" type="flight:EquipmentCapabilityAndStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="ftfmRestrictionProfile" type="flight:FlightRestriction" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="rtfmRestrictionProfile" type="flight:FlightRestriction" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="ctfmRestrictionProfile" type="flight:FlightRestriction" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="cfmuFlightType" type="flight:CfmuFlightType" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightRestriction" abstract="false" >
+  <xs:sequence>
+<xs:element name="timeOver" type="common:DateTimeSecond" minOccurs="0" maxOccurs="1"/>
+<xs:element name="coveredDistance" type="common:DistanceNM" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightPlanProcessing" type="airspace:FlightPlanProcessing" minOccurs="0" maxOccurs="1"/>
+<xs:element name="restrictionId" type="airspace:RestrictionId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="event" type="flight:EntryExit" minOccurs="0" maxOccurs="1"/>
+<xs:element name="position" type="common:Position" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightLevel" type="airspace:FlightLevel" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightAirspace" abstract="false" >
+  <xs:sequence>
+<xs:element name="airspaceId" type="airspace:AirspaceId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="airspaceType" type="airspace:AirspaceType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="firstEntryTime" type="common:DateTimeSecond" minOccurs="0" maxOccurs="1"/>
+<xs:element name="firstEntryFlightLevel" type="airspace:FlightLevel" minOccurs="0" maxOccurs="1"/>
+<xs:element name="firstEntryTrend" type="flight:FlightTrend" minOccurs="0" maxOccurs="1"/>
+<xs:element name="firstEntryDistance" type="common:DistanceNM" minOccurs="0" maxOccurs="1"/>
+<xs:element name="lastExitTime" type="common:DateTimeSecond" minOccurs="0" maxOccurs="1"/>
+<xs:element name="lastExitTrend" type="flight:FlightTrend" minOccurs="0" maxOccurs="1"/>
+<xs:element name="lastExitDistance" type="common:DistanceNM" minOccurs="0" maxOccurs="1"/>
+<xs:element name="occupancyDuration" type="common:DurationHourMinuteSecond" minOccurs="0" maxOccurs="1"/>
+<xs:element name="occupancyDistance" type="common:DistanceNM" minOccurs="0" maxOccurs="1"/>
+<xs:element name="activated" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightOrFlightPlan" abstract="false" >
+  <xs:sequence>
+<xs:element name="flight" type="flight:Flight" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightPlan" type="flight:FlightPlanOrInvalidFiling" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightEvent" abstract="false" >
+  <xs:sequence>
+<xs:element name="timestamp" type="common:DateTimeSecond" minOccurs="0" maxOccurs="1"/>
+<xs:element name="type" type="flight:FlightEventType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="resultingState" type="flight:FlightState" minOccurs="0" maxOccurs="1"/>
+<xs:element name="resultingOffBlockTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="efdSent" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="fumSent" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightIdentification" abstract="false" >
+  <xs:sequence>
+<xs:element name="id" type="flight:IFPLId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="keys" type="flight:FlightKeys" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightKeys" abstract="false" >
+  <xs:sequence>
+<xs:element name="aircraftId" type="flight:ExtendedAircraftId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aerodromeOfDeparture" type="airspace:AerodromeICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="nonICAOAerodromeOfDeparture" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="airFiled" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="aerodromeOfDestination" type="airspace:AerodromeICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="nonICAOAerodromeOfDestination" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="estimatedOffBlockTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightOperationalLogEntry" abstract="false" >
+  <xs:sequence>
+<xs:element name="timestamp" type="common:DateTimeSecond" minOccurs="0" maxOccurs="1"/>
+<xs:element name="type" type="flight:FlightOperationalLogEntryType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="etfmsId" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="ifplId" type="flight:IFPLId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="issuer" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="message" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="summaryFields" minOccurs="0" maxOccurs="unbounded"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlan" abstract="false" >
+  <xs:sequence>
+<xs:element name="ifplId" type="flight:IFPLId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="airFiledData" type="flight:AirFiledData" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aerodromeOfDeparture" type="flight:Aerodrome" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aerodromesOfDestination" type="flight:AerodromesOfDestination" minOccurs="0" maxOccurs="1"/>
+<xs:element name="enrouteAlternateAerodromes" type="flight:Aerodrome" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="aircraftId" type="flight:AircraftIdentification" minOccurs="0" maxOccurs="1"/>
+<xs:element name="whatIfRerouteReference" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="numberOfAircraft" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="aircraftType" type="flight:AircraftType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="totalEstimatedElapsedTime" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="eetsToLocations" type="flight:EstimatedElapsedTimeAtLocation" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="wakeTurbulenceCategory" type="flight:WakeTurbulenceCategory" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightType" type="flight:FlightType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightRules" type="flight:FlightRules" minOccurs="0" maxOccurs="1"/>
+<xs:element name="estimatedOffBlockTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="icaoRoute" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="stayInformation" type="flight:StayInformation_DataType" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="equipmentCapabilityAndStatus" type="flight:EquipmentCapabilityAndStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="surveillanceEquipment" type="flight:SurveillanceEquipment" minOccurs="0" maxOccurs="1"/>
+<xs:element name="otherInformation" type="flight:OtherInformation" minOccurs="0" maxOccurs="1"/>
+<xs:element name="supplementaryInformation" type="flight:SupplementaryInformation" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanHistory" abstract="false" >
+  <xs:sequence>
+<xs:element name="infos" type="flight:FlightPlanHistoryInfo" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanHistoryInfo" abstract="false" >
+  <xs:sequence>
+<xs:element name="timeStamp" type="common:DateTimeSecond" minOccurs="0" maxOccurs="1"/>
+<xs:element name="checkPoint" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="mode" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="msgIn" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="msgOut" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="addresses" minOccurs="0" maxOccurs="unbounded"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="detail" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanOrInvalidFiling" abstract="false" >
+  <xs:sequence>
+<xs:element name="lastValidFlightPlanId" type="flight:FlightIdentification" minOccurs="0" maxOccurs="1"/>
+<xs:element name="currentInvalid" type="flight:InvalidFiling" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPlanUpdate" abstract="false" >
+  <xs:sequence>
+<xs:element name="alternate1Aerodrome" type="flight:Aerodrome" minOccurs="0" maxOccurs="1"/>
+<xs:element name="alternate2Aerodrome" type="flight:Aerodrome" minOccurs="0" maxOccurs="1"/>
+<xs:element name="alternateAerodromes_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="enrouteAlternateAerodromes" type="flight:Aerodrome" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="enrouteAlternateAerodromes_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aircraftId" type="flight:AircraftIdentificationUpdate" minOccurs="0" maxOccurs="1"/>
+<xs:element name="numberOfAircraft" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="aircraftType" type="flight:AircraftType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="totalEstimatedElapsedTime" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="eetsToLocations" type="flight:EstimatedElapsedTimeAtLocation" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="eetsToLocations_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="wakeTurbulenceCategory" type="flight:WakeTurbulenceCategory" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightType" type="flight:FlightType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightRules" type="flight:FlightRules" minOccurs="0" maxOccurs="1"/>
+<xs:element name="estimatedOffBlockTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="icaoRoute" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="stayInformation" type="flight:StayInformation_DataType" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="equipmentCapabilityAndStatus" type="flight:EquipmentCapabilityAndStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="surveillanceEquipment" type="flight:SurveillanceEquipment" minOccurs="0" maxOccurs="1"/>
+<xs:element name="otherInformation" type="flight:OtherInformationUpdate" minOccurs="0" maxOccurs="1"/>
+<xs:element name="supplementaryInformation" type="flight:SupplementaryInformationUpdate" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPoint" abstract="false" >
+  <xs:sequence>
+<xs:element name="timeOver" type="common:DateTimeSecond" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightLevel" type="airspace:FlightLevel" minOccurs="0" maxOccurs="1"/>
+<xs:element name="entryTrend" type="flight:FlightTrend" minOccurs="0" maxOccurs="1"/>
+<xs:element name="exitTrend" type="flight:FlightTrend" minOccurs="0" maxOccurs="1"/>
+<xs:element name="associatedRoute" type="flight:FlightPointRoute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="coveredDistance" type="common:DistanceNM" minOccurs="0" maxOccurs="1"/>
+<xs:element name="isVisible" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="aerodrome" type="airspace:AerodromeICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="point" type="airspace:ICAOPoint" minOccurs="0" maxOccurs="1"/>
+<xs:element name="flightPlanPoint" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FlightPointRoute" abstract="false" >
+  <xs:sequence>
+<xs:element name="routeId" type="airspace:RouteId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="departureProcedureId" type="airspace:ProcedureICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aerodromeOfDeparture" type="airspace:AerodromeICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="arrivalProcedureId" type="airspace:ProcedureICAOId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aerodromeOfArrival" type="airspace:AerodromeICAOId" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="IFPSError" abstract="false" >
+  <xs:sequence>
+<xs:element name="code" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="description" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="InvalidFiling" abstract="false" >
+  <xs:sequence>
+<xs:element name="filingTime" type="common:DateTimeSecond" minOccurs="0" maxOccurs="1"/>
+<xs:element name="invalidMessageType" type="flight:FlightPlanMessageType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="invalidMessageStatus" type="flight:FlightPlanMessageStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="keys" type="flight:FlightKeys" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MessageOriginator" abstract="false" >
+  <xs:sequence>
+<xs:element name="airNavigationUnitId" type="common:AirNavigationUnitId" minOccurs="0" maxOccurs="1"/>
+<xs:element name="address" type="airspace:NetworkAddress" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="OtherInformation" abstract="false" >
+  <xs:sequence>
+<xs:element name="selCalCode" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="nameOfOperator" type="flight:AircraftOperatorName_DataType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="reasonForSpecialHandling" type="flight:SpecialHandlingIndicators" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aircraftPerformanceData" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="communicationEquipment" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="datalinkCapabilities" type="flight:DatalinkCapabilities" minOccurs="0" maxOccurs="1"/>
+<xs:element name="navigationEquipment" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="replacementFlightPlanIndicator" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="runwayVisualRange" type="common:DistanceM" minOccurs="0" maxOccurs="1"/>
+<xs:element name="reclearanceInFlight" type="flight:ReclearanceInFlight" minOccurs="0" maxOccurs="1"/>
+<xs:element name="otherRemarks" minOccurs="0" maxOccurs="unbounded"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="OtherInformationUpdate" abstract="false" >
+  <xs:sequence>
+<xs:element name="selCalCode" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="selCalCode_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="nameOfOperator" type="flight:AircraftOperatorName_DataType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="nameOfOperator_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="reasonForSpecialHandling" type="flight:SpecialHandlingIndicators" minOccurs="0" maxOccurs="1"/>
+<xs:element name="reasonForSpecialHandling_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aircraftPerformanceData" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="aircraftPerformanceData_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="communicationEquipment" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="communicationEquipment_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="datalinkCapabilities" type="flight:DatalinkCapabilities" minOccurs="0" maxOccurs="1"/>
+<xs:element name="datalinkCapabilities_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="navigationEquipment" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="navigationEquipment_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="runwayVisualRange" type="common:DistanceM" minOccurs="0" maxOccurs="1"/>
+<xs:element name="runwayVisualRange_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="reclearanceInFlight" type="flight:ReclearanceInFlight" minOccurs="0" maxOccurs="1"/>
+<xs:element name="reclearanceInFlight_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="otherRemarks" minOccurs="0" maxOccurs="unbounded"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ReadyStatus" abstract="false" >
+  <xs:sequence>
+<xs:element name="readyForImprovement" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="readyToDepart" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="revisedTaxiTime" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ReclearanceInFlight" abstract="false" >
+  <xs:sequence>
+<xs:element name="icaoRoute" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="aerodrome" type="airspace:AerodromeICAOId" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RequestedFlightLevel" abstract="false" >
+  <xs:sequence>
+<xs:element name="flightLevel" type="airspace:FlightLevel" minOccurs="0" maxOccurs="1"/>
+<xs:element name="segmentSequenceNumber" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="relativeDistance" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ReroutingIndicator" abstract="false" >
+  <xs:sequence>
+<xs:element name="rerouted" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:boolean"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="reason" type="flight:ReroutingReason" minOccurs="0" maxOccurs="1"/>
+<xs:element name="state" type="flight:ReroutingState" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ReroutingReference" abstract="false" >
+  <xs:sequence>
+<xs:element name="name" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="validUntil" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RevisionTimes" abstract="false" >
+  <xs:sequence>
+<xs:element name="timeToInsertInSequence" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="timeToRemoveFromSequence" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RouteInfo" abstract="false" >
+  <xs:sequence>
+<xs:element name="duration" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="length" type="common:DistanceNM" minOccurs="0" maxOccurs="1"/>
+<xs:element name="icaoRoute" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="routeErrors" type="flight:IFPSError" minOccurs="0" maxOccurs="unbounded"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SlotImprovementProposal" abstract="false" >
+  <xs:sequence>
+<xs:element name="proposedCalculatedTakeOffTime" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="responseBy" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SpecialHandlingIndicators" abstract="false" >
+  <xs:sequence>
+<xs:element name="icaoSTSIndicators" type="flight:ICAOSTSIndicator" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="cfmuSTSIndicators" type="flight:CFMUExemptionSTSIndicator" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="otherExemptionIndicators" minOccurs="0" maxOccurs="unbounded"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SSRInfo" abstract="false" >
+  <xs:sequence>
+<xs:element name="code" type="flight:SSRCode" minOccurs="0" maxOccurs="1"/>
+<xs:element name="mode" type="flight:SSRMode" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SupplementaryInformation" abstract="false" >
+  <xs:sequence>
+<xs:element name="fuelEndurance" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="numberOfPersons" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="frequencyAvailability" type="flight:FrequencyOnAircraft" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="survivalEquipment" type="flight:SurvivalEquipment" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="otherSurvivalEquipment" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="lifeJacketEquipment" type="flight:LifeJacketEquipment" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="dinghiesInformation" type="flight:Dinghies" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aircraftColourAndMarkings" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="pilotInCommand" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SupplementaryInformationUpdate" abstract="false" >
+  <xs:sequence>
+<xs:element name="fuelEndurance" type="common:DurationHourMinute" minOccurs="0" maxOccurs="1"/>
+<xs:element name="fuelEndurance_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="numberOfPersons" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:int"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="numberOfPersons_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="frequencyAvailability" type="flight:FrequencyOnAircraft" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="frequencyAvailability_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="survivalEquipment" type="flight:SurvivalEquipment" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="survivalEquipment_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="otherSurvivalEquipment" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="otherSurvivalEquipment_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="lifeJacketEquipment" type="flight:LifeJacketEquipment" minOccurs="0" maxOccurs="unbounded"/>
+<xs:element name="lifeJacketEquipment_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="dinghiesInformation" type="flight:Dinghies" minOccurs="0" maxOccurs="1"/>
+<xs:element name="dinghiesInformation_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="aircraftColourAndMarkings" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="aircraftColourAndMarkings_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+<xs:element name="pilotInCommand" minOccurs="0" maxOccurs="1"><xs:simpleType><xs:restriction base="xs:string"></xs:restriction></xs:simpleType></xs:element>
+<xs:element name="pilotInCommand_ToNull" type="common:Marker" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SurveillanceEquipment" abstract="false" >
+  <xs:sequence>
+<xs:element name="modeA" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="modeAAndC" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="modeSNoIdNoPressure" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="modeSIdNoPressure" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="modeSNoIdPressure" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="modeS" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+<xs:element name="ads" type="flight:EquipmentStatus" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TimeAndModel" abstract="false" >
+  <xs:sequence>
+<xs:element name="model" type="flight:TrafficType" minOccurs="0" maxOccurs="1"/>
+<xs:element name="time" type="common:DateTimeMinute" minOccurs="0" maxOccurs="1"/>
+  </xs:sequence>
+  </xs:complexType>
+</xs:schema>
