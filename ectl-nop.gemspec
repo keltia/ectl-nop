@@ -5,11 +5,11 @@ require 'ectl/nop/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "ectl-nop"
-  spec.version       = Ectl::Nop::VERSION
+  spec.version       = ECTL::NOP::VERSION
   spec.authors       = ["Ollivier Robert"]
   spec.email         = ["roberto@keltia.net"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Easy way to use EUROCONTROL/CFMU NOP B2B Web Services.}
+  spec.summary       = %q{Wraps WSDL files into propre classes for NOP B2B Usage.}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -20,4 +20,6 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+
+  spec.add_dependency 'savon'
 end

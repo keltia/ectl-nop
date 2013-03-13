@@ -1,7 +1,7 @@
 require "ectl/nop/version"
 
-module Ectl
-  module Nop
+module ECTL
+  module NOP
     # Your code goes here...
   end
 end

@@ -1,5 +1,5 @@
-module Ectl
-  module Nop
+module ECTL
+  module NOP
     VERSION = "0.0.1"
   end
 end

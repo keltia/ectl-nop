@@ -1,6 +1,7 @@
-# Ectl::Nop
+# ECTL::NOP
 
-TODO: Write a gem description
+Set of classes to create new classes for Web Services based on WSDL files supplied
+by the EUROCONTROL CFMU NOPB2B portal.
 
 ## Installation
 
